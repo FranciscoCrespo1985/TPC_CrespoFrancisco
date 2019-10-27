@@ -7,8 +7,8 @@ namespace Club.Models
 {
     public class Usuario
     {
-        public long ID { get; set; }
-        public string EMAIL { get; set; }
-        public string PWD { get; set; }
+        public long id { get; set; }
+        public string email { get; set; }
+        public string pwd { get; set; }
     }
 }
