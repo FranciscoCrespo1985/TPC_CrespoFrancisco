@@ -26,5 +26,6 @@ namespace Club.Controllers
 
             return View();
         }
+        
     }
 }

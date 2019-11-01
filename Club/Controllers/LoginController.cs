@@ -13,5 +13,10 @@ namespace Club.Controllers
         {
             return PartialView();
         }
+
+        public ActionResult Login()
+        {
+            return Redirect("/UserCalendar");
+        }
     }
 }

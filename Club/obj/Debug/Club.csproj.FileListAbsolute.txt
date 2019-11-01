@@ -73,7 +73,6 @@ D:\Workspace\Repos\TPC_CrespoFrancisco\Club\bin\System.Web.WebPages.Deployment.x
 D:\Workspace\Repos\TPC_CrespoFrancisco\Club\bin\System.Web.WebPages.Razor.xml
 D:\Workspace\Repos\TPC_CrespoFrancisco\Club\bin\Antlr3.Runtime.pdb
 D:\Workspace\Repos\TPC_CrespoFrancisco\Club\obj\Debug\Club.csprojAssemblyReference.cache
-D:\Workspace\Repos\TPC_CrespoFrancisco\Club\obj\Debug\Club.csproj.CoreCompileInputs.cache
 D:\Workspace\Repos\TPC_CrespoFrancisco\Club\obj\Debug\Club.csproj.CopyComplete
 D:\Workspace\Repos\TPC_CrespoFrancisco\Club\obj\Debug\Club.dll
 D:\Workspace\Repos\TPC_CrespoFrancisco\Club\obj\Debug\Club.pdb
