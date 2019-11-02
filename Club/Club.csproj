@@ -122,16 +122,22 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\TipoActividadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Actividad.cs" />
     <Compile Include="Models\ActividadTipo.cs" />
+    <Compile Include="Models\EstadoReserva.cs" />
+    <Compile Include="Models\Horario.cs" />
+    <Compile Include="Models\Locacion.cs" />
     <Compile Include="Models\Profesor.cs" />
+    <Compile Include="Models\Reserva.cs" />
     <Compile Include="Models\Socio.cs" />
     <Compile Include="Models\SubscripcionTipo.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AccesoDatos.cs" />
     <Compile Include="Views\UserCalendarController.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2109,6 +2115,8 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\UserCalendar\Index.cshtml" />
+    <Content Include="Views\TipoActividad\Index.cshtml" />
+    <Content Include="Views\TipoActividad\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

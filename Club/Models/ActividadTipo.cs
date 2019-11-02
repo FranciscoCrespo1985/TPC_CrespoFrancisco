@@ -9,5 +9,7 @@ namespace Club.Models
     {
         public long id { get; set; }
         public long nombre { get; set; }
+
+
     }
 }
