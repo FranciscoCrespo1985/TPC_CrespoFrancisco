@@ -76,4 +76,3 @@ D:\Workspace\Repos\TPC_CrespoFrancisco\Club\obj\Debug\Club.csprojAssemblyReferen
 D:\Workspace\Repos\TPC_CrespoFrancisco\Club\obj\Debug\Club.csproj.CopyComplete
 D:\Workspace\Repos\TPC_CrespoFrancisco\Club\obj\Debug\Club.dll
 D:\Workspace\Repos\TPC_CrespoFrancisco\Club\obj\Debug\Club.pdb
-D:\Workspace\Repos\TPC_CrespoFrancisco\Club\obj\Debug\Club.csproj.CoreCompileInputs.cache

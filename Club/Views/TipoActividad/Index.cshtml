@@ -1,5 +1,68 @@
-﻿@{
+﻿@model List<Club.Models.ActividadTipo>
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+    
+<h1>listado de tipos de activdad</h1>
 
-    <h1>listado de tipos de activdad</h1>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Bordered Table</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>Descripcion</th>
+                                    <th></th>
+
+                                </tr>
+                                @foreach (var item in Model)
+                                {
+                                    
+                                    <tr>
+                                        <td>@item.id</td>
+
+                                        <td>@item.descripcion</td>
+                                        
+                                        <td>
+                                            @using (Html.BeginForm("Delete", "TipoActividad", FormMethod.Post))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" value="@item.descripcion" name="TicketNumber" />
+                                                <input type="hidden" value="@item.id" name="Id" />
+                                                <input type="submit" value="View Details" />
+                                            }
+                                        </td>
+                                    </tr>
+                                 }
+                                    
+                                </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer clearfix">
+                        <ul class="pagination pagination-sm no-margin pull-right">
+                            <li><a href="#">«</a></li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">»</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+</section>

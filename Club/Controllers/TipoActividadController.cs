@@ -1,9 +1,11 @@
-﻿using Club.Services;
+﻿using Club.Models;
+using Club.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
 
 
 namespace Club.Controllers
@@ -13,7 +15,32 @@ namespace Club.Controllers
         // GET: TipoActividad
         public ActionResult Index()
         {
-            return View();
+
+            AccesoDatos datos = new AccesoDatos();
+            ActividadTipo aux;
+            List<ActividadTipo> tiposActividades = new List<ActividadTipo>();
+            try
+            {
+
+                datos.setearQuery("Select * from TiposActividad");
+                datos.ejecutarLector();
+                while (datos.lector.Read())
+                {
+                    aux = new ActividadTipo();
+                    aux.id = datos.lector.GetInt32(0);
+                    aux.descripcion = datos.lector.GetString(1);
+                    tiposActividades.Add(aux);
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            return View(tiposActividades);
         }
 
         // GET: TipoActividad/Details/5
@@ -43,11 +70,12 @@ namespace Club.Controllers
                 datos.agregarParametro("@descripcion", descripcion);
                
                 datos.ejecutarAccion();
-                
+                datos.cerrarConexion();
                 return RedirectToAction("Index");
             }
             catch
             {
+                datos.cerrarConexion();
                 return View();
             }
         }
@@ -84,14 +112,23 @@ namespace Club.Controllers
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
+            AccesoDatos datos = new AccesoDatos();
+            
             try
             {
+                datos.setearQuery("delete from TiposActividad where id =@id");
+                datos.agregarParametro("@id", id);
+                datos.ejecutarAccion();
+
                 // TODO: Add delete logic here
+
+                datos.cerrarConexion();
 
                 return RedirectToAction("Index");
             }
             catch
             {
+                datos.cerrarConexion();
                 return View();
             }
         }

@@ -15,8 +15,8 @@ namespace Club.Services
         public AccesoDatos()
         {
             /*laptop*/
-            conexion = new SqlConnection("data source=Paco-PC; initial catalog=DEPORTES_CRESPO_DB; integrated security=sspi");
-            /*casa*/// conexion = new SqlConnection("data source=DESKTOP-3OE155I\\SQLEXPRESS; initial catalog=TP_WEB; integrated security=sspi");
+           // conexion = new SqlConnection("data source=Paco-PC; initial catalog=DEPORTES_CRESPO_DB; integrated security=sspi");
+            /*casa*/ conexion = new SqlConnection("data source=DESKTOP-3OE155I\\SQLEXPRESS; initial catalog=DEPORTES_CRESPO_TP; integrated security=sspi");
             comando = new SqlCommand();
             comando.Connection = conexion;
         }
