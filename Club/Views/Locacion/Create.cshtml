@@ -1,0 +1,63 @@
+﻿@model List<Club.Models.ActividadTipo>
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Ingresar Locacion</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <!-- form start -->
+
+                        @using (Html.BeginForm("Create", "Locacion",
+                            new { ReturnUrl = ViewBag.ReturnUrl },
+                            FormMethod.Post, new { @class = "login-form", name = "colletion" }))
+                        {
+
+
+                            <div class="form-group">
+                                <div class="input-group input-group-sm">
+                                    <input type="text" name="descripcion" id="descripcion" class="form-control">
+                                    <br /><br />
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <select class="form-control" name="Id">
+                                    @foreach (var c in Model)
+                                    {
+                                        <option value="@c.id">@c.descripcion</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="box-footer">
+                                <input class="btn btn-primary" type="submit" value="Ingresar" />
+                            </div>
+
+
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- /.box-body -->
+
+        </div>
+        </div>
+</section>
+
+
+
+

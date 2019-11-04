@@ -1,8 +1,9 @@
-﻿@model List<Club.Models.ActividadTipo>
+﻿@model List<Club.Models.Locacion>
 @{
+    ViewBag.Title = "Locacion";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-    
+
 <h1>listado de tipos de activdad</h1>
 
 <section class="content">
@@ -19,31 +20,33 @@
                             <tbody>
                                 <tr>
                                     <th style="width: 10px">#</th>
-                                    <th>Descripcion</th>
+                                    <th>Habilitado para:</th>
+                                    <th>Ubicacion:</th>
                                     <th></th>
 
                                 </tr>
-                                @foreach (var item in Model)
+                                @foreach (var location in Model)
                                 {
-                                    
-                                    <tr>
-                                        <td>@item.id</td>
 
-                                        <td>@item.descripcion</td>
-                                        
+                                    <tr>
+
+                                        <td>@location.id</td>
+                                        <td>@location.tipo.descripcion</td>
+                                        <td>@location.descripcion</td>
+
                                         <td>
-                                            @using (Html.BeginForm("Delete", "TipoActividad", FormMethod.Post))
+                                            @using (Html.BeginForm("Delete", "Locacion", FormMethod.Post))
                                             {
                                                 @Html.AntiForgeryToken()
-                                                <input type="hidden" value="@item.descripcion" name="TicketNumber" />
-                                                <input type="hidden" value="@item.id" name="Id" />
+                                                <input type="hidden" value="@location.descripcion" name="TicketNumber" />
+                                                <input type="hidden" value="@location.id" name="Id" />
                                                 <input class="btn btn-block btn-danger" type="submit" value="Borrar" />
                                             }
                                         </td>
                                     </tr>
-                                 }
-                                    
-                                </tbody>
+                                }
+
+                            </tbody>
                         </table>
                     </div>
                     <!-- /.box-body -->

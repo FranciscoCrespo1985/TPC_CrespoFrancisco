@@ -121,7 +121,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LocacionController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ProfesorController.cs" />
     <Compile Include="Controllers\TipoActividadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -138,6 +140,7 @@
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AccesoDatos.cs" />
+    <Compile Include="Services\Listas.cs" />
     <Compile Include="Views\UserCalendarController.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2118,6 +2121,10 @@
     <Content Include="Views\UserCalendar\Index.cshtml" />
     <Content Include="Views\TipoActividad\Index.cshtml" />
     <Content Include="Views\TipoActividad\Create.cshtml" />
+    <Content Include="Views\Locacion\Index.cshtml" />
+    <Content Include="Views\Locacion\Create.cshtml" />
+    <Content Include="Views\Profesor\Index.cshtml" />
+    <Content Include="Views\Profesor\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
