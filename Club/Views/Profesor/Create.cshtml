@@ -23,48 +23,56 @@
                             {
 
 
-                            <div class="form-group">
-                                <label for="nombre">NOMBRE</label>
-                                <div class="input-group input-group-sm">
-                                    <input type="text" name="nombre" id="nombre" class="form-control">
-                                    <br />
+                                <div class="form-group">
+                                    <label for="nombre">NOMBRE</label>
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" name="nombre" id="nombre" class="form-control">
+                                        <br />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label for="dni">DNI</label>
-                                <div class="input-group input-group-sm">
-                                    <input type="text" name="dni" id="dni" class="form-control">
-                                    <br />
+                                <div class="form-group">
+                                    <label for="Apellido">Apellido</label>
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" name="apellido" id="apellido" class="form-control">
+                                        <br />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label for="telefono">TELEFONO</label>
-                                <div class="input-group input-group-sm">
-
-                                    <input type="text" name="telefono" id="telefono" class="form-control">
-                                    <br />
+                                <div class="form-group">
+                                    <label for="dni">DNI</label>
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" name="dni" id="dni" class="form-control">
+                                        <br />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label for="email">EMAIL</label>
-                                <div class="input-group input-group-sm">
-                                    <input type="text" name="email" id="email" class="form-control">
-                                    <br />
+                                <div class="form-group">
+                                    <label for="telefono">TELEFONO</label>
+                                    <div class="input-group input-group-sm">
+
+                                        <input type="text" name="telefono" id="telefono" class="form-control">
+                                        <br />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label for="Id">TIPO DE PROFESOR</label>
-                                <select class="form-control" name="Id">
-                                    @foreach (var c in Model)
-                                    {
-                                        <option value="@c.id">@c.descripcion</option>
-                                    }
-                                </select>
-                            </div>
+                                <div class="form-group">
+                                    <label for="email">EMAIL</label>
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" name="email" id="email" class="form-control">
+                                        <br />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Id">TIPO DE PROFESOR</label>
+                                    <select class="form-control" name="Id">
+                                        @foreach (var c in Model)
+                                        {
+                                            <option value="@c.id">@c.descripcion</option>
+                                        }
+                                    </select>
+                                </div>
 
                                 <div class="box-footer">
                                     <input class="btn btn-primary" type="submit" value="Ingresar" />

@@ -8,6 +8,6 @@ namespace Club.Models
     public class SubscripcionTipo
     {
         public int id { get; set; }
-        public int nombre { get; set; }
+        public string descripcion { get; set; }
     }
 }
