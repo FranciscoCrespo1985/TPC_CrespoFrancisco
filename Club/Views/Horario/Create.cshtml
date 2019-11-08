@@ -1,0 +1,121 @@
+﻿@model Club.Models.Horario
+
+@{
+    Club.Models.PosibleHours hours = new Club.Models.PosibleHours();
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+  
+
+}
+
+<h2>Create</h2>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Ingresar Horario</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <!-- form start -->
+
+                        @using (Html.BeginForm("Create", "Horario",
+                            new { ReturnUrl = ViewBag.ReturnUrl },
+                            FormMethod.Post, new { @class = "login-form", name = "colletion" }))
+                        {
+
+
+                            <div class="form-group">
+                                <label for="cupo">Cupo</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" name="cupo" id="cupo" class="form-control">
+                                    <br />
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <label for="horaInicio">Hora Inicio</label>
+                                <select class="form-control" name="horaInicio">
+                                    @foreach (var c in hours.horas)
+                                    {
+                                        <option value="@c">@c</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="horaFin">Hora Fin</label>
+                                <select class="form-control" name="horaFin">
+                                    @foreach (var c in hours.horas)
+                                    {
+                                        <option value="@c">@c</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cupo">Cupo</label>
+                                <div class="input-group input-group-sm">
+                                   
+                                    
+                                    @Html.EditorFor(model => model.horaInicio, new { htmlAttributes = new { @class = "fechaFin" } })
+                                    <br />
+                                </div>
+                            </div>
+
+
+                           
+                                
+
+
+
+                            
+
+                            <div class="box-footer">
+                                <input class="btn btn-primary" type="submit" value="Ingresar" />
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- /.box-body -->
+
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+@section  scripts{
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+
+    <script>
+
+
+
+        $(function () {
+            $(".fechaFin").datepicker({
+                dateFormat: "dd/mm/yy",
+                changeMonth: true,
+                changeYear:true
+            });
+        });
+
+
+
+    </script>
+
+
+
+}

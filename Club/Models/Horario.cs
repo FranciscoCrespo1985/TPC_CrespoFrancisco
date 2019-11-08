@@ -7,7 +7,7 @@ namespace Club.Models
 {
     public class Horario
     {
-        public int MyProperty { get; set; }
+        public int Id { get; set; }
         public DateTime horaInicio { get; set; }
         public DateTime horaFin { get; set; }
         public DateTime fechaFinActividad { get; set; }
