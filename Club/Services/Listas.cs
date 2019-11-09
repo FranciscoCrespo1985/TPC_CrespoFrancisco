@@ -67,6 +67,79 @@ namespace Club.Services
             }
             return tiposSubscripciones;
         }
+
+        public List<Profesor> listaProfesor() {
+            List<Profesor> lProfesor = new List<Profesor>();
+            AccesoDatos datos = new AccesoDatos();
+            Profesor aux;
+            
+
+            try
+            {
+                datos.setearQuery("select * from profesor as p" +
+                              " inner join tiposActividad as tp on p.ID_Actividad_Tipo = tp.id ");
+                datos.ejecutarLector();
+                while (datos.lector.Read())
+                {
+                    aux = new Profesor();
+                    aux.actividad = new ActividadTipo();
+                    aux.id = datos.lector.GetInt32(0);
+                    aux.nombre = datos.lector.GetString(1);
+                    aux.dni = datos.lector.GetString(2);
+                    aux.telefono = datos.lector.GetString(3);
+                    aux.email = datos.lector.GetString(4);
+                    aux.actividad.id = datos.lector.GetInt32(6);
+                    aux.actividad.descripcion = datos.lector.GetString(7);
+
+                    lProfesor.Add(aux);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+
+            return lProfesor;
+        }
+
+        public List<Locacion> listaLocacion()
+        {
+            List<Locacion> locaciones = new List<Locacion>();
+            AccesoDatos datos = new AccesoDatos();
+            Locacion aux;
+
+
+            try
+            {
+                datos.setearQuery("select * from Locacion as p" +
+                              " inner join tiposActividad as tp on p.ID_Actividad_Tipo = tp.id ");
+                datos.ejecutarLector();
+                while (datos.lector.Read())
+                {
+                    aux = new Locacion();
+                    aux.tipo = new ActividadTipo();
+                    aux.id = datos.lector.GetInt32(0);
+                    aux.descripcion = datos.lector.GetString(2);
+                    aux.tipo.id = datos.lector.GetInt32(3);
+                    aux.tipo.descripcion = datos.lector.GetString(4);
+
+                    locaciones.Add(aux);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+
+            return locaciones;
+        }
+
+        
+
     }
 
 }

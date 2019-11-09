@@ -11,6 +11,8 @@ namespace Club.Models
         public DateTime horaInicio { get; set; }
         public DateTime horaFin { get; set; }
         public DateTime fechaFinActividad { get; set; }
+
+        public DateTime fechaInicioActividad { get; set; }
         public int cupo { get; set; }
         public int cantInscriptos { get; set; }
 

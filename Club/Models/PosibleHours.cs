@@ -13,6 +13,7 @@ namespace Club.Models
             horas.Add("8:00");
             horas.Add("8:30");
             horas.Add("9:00");
+            horas.Add("9:30");
             horas.Add("10:00");
             horas.Add("10:30");
             horas.Add("11:00");

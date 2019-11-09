@@ -1,0 +1,80 @@
+﻿@model  Club.Models.mvListaActividadComponentes 
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Ingresar Profesor</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <!-- form start -->
+
+                        @using (Html.BeginForm("Create", "Actividad",
+                            new { ReturnUrl = ViewBag.ReturnUrl },
+                            FormMethod.Post, new { @class = "login-form", name = "colletion" }))
+                        {
+
+
+                            <div class="form-group">
+                                <label for="nombre">NOMBRE</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" name="nombre" id="nombre" class="form-control">
+                                    <br />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Id">TIPO DE PROFESOR</label>
+                                <select class="form-control" name="idProfesor">
+                                    @foreach (var c in Model.lProfesor)
+                                    {
+                                        <option value="@c.id">@c.nombre</option>
+                                    }
+                                </select>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="Id">Locacion</label>
+                                <select class="form-control" name="idDescripcion">
+                                    @foreach (var c in Model.lLocacion)
+                                    {
+                                        <option value="@c.id">@c.descripcion</option>
+                                    }
+                                </select>
+                            </div>
+
+                           /* <div class="form-group">
+                                <label for="Id">Locacion</label>
+                                <select class="form-control" name="idTipo">
+                                    @foreach (var c in Model.lTipo)
+                                    {
+                                        <option value="@c.id">@c.descripcion</option>
+                                    }
+                                </select>
+                            </div>*/
+
+                            <div class="box-footer">
+                                <input class="btn btn-primary" type="submit" value="Ingresar" />
+                            </div>
+
+
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- /.box-body -->
+
+        </div>
+    </div>
+</section>

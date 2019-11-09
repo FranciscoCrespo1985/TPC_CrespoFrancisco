@@ -57,24 +57,26 @@
                                     }
                                 </select>
                             </div>
-
                             <div class="form-group">
-                                <label for="cupo">Cupo</label>
+                                <label for="cupo">Fecha Inicio</label>
                                 <div class="input-group input-group-sm">
-                                   
-                                    
-                                    @Html.EditorFor(model => model.horaInicio, new { htmlAttributes = new { @class = "fechaFin" } })
+
+
+                                    @Html.EditorFor(model => model.fechaInicioActividad, new { htmlAttributes = new { @class = "fechaInicio" } })
                                     <br />
                                 </div>
                             </div>
 
 
-                           
-                                
+                            <div class="form-group">
+                                <label for="cupo">Fecha Finalizacion</label>
+                                <div class="input-group input-group-sm">
 
 
-
-                            
+                                    @Html.EditorFor(model => model.fechaFinActividad, new { htmlAttributes = new { @class = "fechaFin" } })
+                                    <br />
+                                </div>
+                            </div>
 
                             <div class="box-footer">
                                 <input class="btn btn-primary" type="submit" value="Ingresar" />
@@ -101,7 +103,13 @@
     <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
 
     <script>
-
+         $(function () {
+            $(".fechaInicio").datepicker({
+                dateFormat: "dd/mm/yy",
+                changeMonth: true,
+                changeYear:true
+            });
+        });
 
 
         $(function () {

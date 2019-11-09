@@ -154,3 +154,4 @@ D:\workspace\repos\TPC_CrespoFrancisco\TPC_CrespoFrancisco\Club\obj\Debug\Club.c
 D:\workspace\repos\TPC_CrespoFrancisco\TPC_CrespoFrancisco\Club\obj\Debug\Club.csproj.CopyComplete
 D:\workspace\repos\TPC_CrespoFrancisco\TPC_CrespoFrancisco\Club\obj\Debug\Club.dll
 D:\workspace\repos\TPC_CrespoFrancisco\TPC_CrespoFrancisco\Club\obj\Debug\Club.pdb
+D:\Workspace\Repos\TPC_CrespoFrancisco\Club\obj\Debug\Club.csproj.CoreCompileInputs.cache
