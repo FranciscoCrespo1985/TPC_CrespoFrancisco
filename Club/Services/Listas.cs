@@ -38,6 +38,48 @@ namespace Club.Services
             return tiposActividades;
         }
 
+        internal List<Horario> listaHorario()
+        {
+            AccesoDatos datos = new AccesoDatos();
+            Horario aux;
+            List<Horario> horarios = new List<Horario>();
+
+            try
+            {
+                datos.setearQuery("select * from horario");
+                datos.ejecutarLector();
+                while (datos.lector.Read())
+                {
+                    aux = new Horario();
+                    aux.dias = new List<bool>();
+                    aux.id = datos.lector.GetInt64(0);
+                    aux.horaInicio = datos.lector.GetDateTime(1);
+                    aux.horaFin = datos.lector.GetDateTime(2);
+                    aux.fechaFinActividad = datos.lector.GetDateTime(3);
+                    aux.fechaInicioActividad = datos.lector.GetDateTime(4);
+                    aux.cupo = datos.lector.GetInt32(5);
+                    aux.cantInscriptos = datos.lector.GetInt32(6);
+                    aux.dias.Add(datos.lector.GetBoolean(7));
+                    aux.dias.Add(datos.lector.GetBoolean(8));
+                    aux.dias.Add(datos.lector.GetBoolean(9));
+                    aux.dias.Add(datos.lector.GetBoolean(10));
+                    aux.dias.Add(datos.lector.GetBoolean(11));
+                    aux.dias.Add(datos.lector.GetBoolean(12));
+                    aux.dias.Add(datos.lector.GetBoolean(13));
+                    horarios.Add(aux);
+
+                }
+                datos.cerrarConexion();
+
+            }
+            catch (Exception ex)
+            {
+                datos.cerrarConexion();
+                throw ex;
+            }
+            return horarios;
+        }
+
         public List<SubscripcionTipo> ListaSocioTipo()
         {
             AccesoDatos datos = new AccesoDatos();

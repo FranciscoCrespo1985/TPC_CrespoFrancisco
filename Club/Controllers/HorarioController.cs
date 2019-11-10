@@ -36,40 +36,56 @@ namespace Club.Controllers
           
 
             hora.cupo = Convert.ToInt32(collection["cupo"]);
-            hora.fechaInicioActividad = Convert.ToDateTime(collection["fechaInicioActividad"]);
-            hora.fechaFinActividad = Convert.ToDateTime(collection["fechaFinActividad"]);
+            hora.fechaInicioActividad = DateTime.ParseExact((collection["fechaInicioActividad"]),"d/M/yyyy", null);
+            hora.fechaFinActividad = DateTime.ParseExact((collection["fechaFinActividad"]),"d/M/yyyy",null);
             hora.horaInicio = Convert.ToDateTime(collection["horainicio"]);
             hora.horaFin = Convert.ToDateTime(collection["horafin"]);
-            hora.cantInscriptos = 0;
-         
-            /*socio.pwd = Convert.ToString(collection["pwd"]);
-            socio.dni = Convert.ToString(collection["dni"]);
-            socio.email = Convert.ToString(collection["email"]);
-            socio.telefono = Convert.ToString(collection["telefono"]);
-            socio.subscripcionTipo.id = Convert.ToInt32(collection["Id"]);
+            hora.dias = new List<bool>();
+            
+            hora.dias.Add(Convert.ToBoolean(collection["lunes"]));
+            hora.dias.Add(Convert.ToBoolean(collection["martes"]));
+            hora.dias.Add(Convert.ToBoolean(collection["miercoles"]));
+            hora.dias.Add(Convert.ToBoolean(collection["jueves"]));
+            hora.dias.Add(Convert.ToBoolean(collection["viernes"]));
+            hora.dias.Add(Convert.ToBoolean(collection["sabado"]));
+            hora.dias.Add(Convert.ToBoolean(collection["domingo"]));
 
 
             try
             {
-                datos.setearQuery("insert into socios(nombre,apellido,dni,telefono,email,pwd,id_tiposSubscripcion)" +
-                "values (@nombre,@apellido,@dni,@telefono,@email,@pwd,@id)");
-                datos.agregarParametro("@nombre", socio.nombre);
-                datos.agregarParametro("@apellido", socio.apellido);
-                datos.agregarParametro("@dni", socio.dni);
-                datos.agregarParametro("@telefono", socio.telefono);
-                datos.agregarParametro("@email", socio.email);
-                datos.agregarParametro("@pwd", socio.pwd);
-                datos.agregarParametro("@id", socio.subscripcionTipo.id);
+                datos.setearQuery("insert into horario(horaInicio,horaFin,fechaFinActividad,fechaInicioActividad,cupo,cantInscriptos,domingo,lunes,martes,miercoles,jueves,viernes,sabado)" +
+                    " values(@horaInicio,@horaFin,@fechaFinActividad,@fechaInicioActividad,@cupo,@cantInscriptos,@domingo,@lunes,@martes,@miercoles,@jueves,@viernes,@sabado)");
+
+                datos.agregarParametro("@horaInicio",hora.horaInicio); 
+                datos.agregarParametro("@horaFin", hora.horaFin); 
+                datos.agregarParametro("@fechaFinActividad", hora.fechaFinActividad);
+                datos.agregarParametro("@fechaInicioActividad", hora.fechaInicioActividad);
+                datos.agregarParametro("@cupo", hora.cupo);
+                datos.agregarParametro("@cantInscriptos", hora.cantInscriptos);
+
+                
+                datos.agregarParametro("@lunes", hora.dias[0]);
+                datos.agregarParametro("@martes", hora.dias[1]);
+                datos.agregarParametro("@miercoles", hora.dias[2]);
+                datos.agregarParametro("@jueves", hora.dias[3]);
+                datos.agregarParametro("@viernes", hora.dias[4]);
+                datos.agregarParametro("@sabado", hora.dias[5]);
+                datos.agregarParametro("@domingo", hora.dias[6]);
+
                 datos.ejecutarAccion();
                 datos.cerrarConexion();
 
                 return RedirectToAction("Index");
+
+
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
-            }*/
-            return View();
+
+                throw ex;
+            }
+            
+            
         }
 
         // GET: Horario/Edit/5
