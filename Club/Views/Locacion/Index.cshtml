@@ -4,8 +4,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>listado de tipos de activdad</h1>
 
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            @Html.ActionLink("Crear", "Create", "Locacion")
+        </li>
+        <li class="breadcrumb-item active">Index</li>
+
+   
+    </ol>
 <section class="content">
     <div class="container-fluid">
         <div class="row">
