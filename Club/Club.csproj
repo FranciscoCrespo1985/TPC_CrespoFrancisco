@@ -2184,7 +2184,6 @@
     <Content Include="Views\TipoActividad\Create.cshtml" />
     <Content Include="Views\Locacion\Index.cshtml" />
     <Content Include="Views\Locacion\Create.cshtml" />
-    <Content Include="Views\Profesor\Index.cshtml" />
     <Content Include="Views\Profesor\Create.cshtml" />
     <Content Include="Views\SubcripcionTipo\Create.cshtml" />
     <Content Include="Views\SubcripcionTipo\Index.cshtml" />
@@ -2194,6 +2193,8 @@
     <Content Include="Views\Horario\Create.cshtml" />
     <Content Include="Views\Actividad\Create.cshtml" />
     <Content Include="Views\Actividad\Index.cshtml" />
+    <Content Include="Views\Profesor\Index.cshtml" />
+    <Content Include="Views\Profesor\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

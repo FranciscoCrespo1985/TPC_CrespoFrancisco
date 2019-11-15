@@ -1,2 +1,93 @@
-﻿
-   
+﻿@model List<Club.Models.Profesor>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+
+        @Html.ActionLink("Crear", "Create", "Profesor")
+    </li>
+    <li class="breadcrumb-item active">Indice</li>
+</ol>
+<h2>Index</h2>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Bordered Table</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                   
+                                    <th>Id:</th>
+                                    <th>Nombre:</th>
+                                    <th>DNI:</th>
+                                    <th>Telefono:</th>
+                                    <th>Email:</th>
+                                    <th>Tipo Actividad:</th>
+                                    <th>Editar:</th>
+                                    <th>Eliminar:</th>
+
+                                </tr>
+                                @foreach (var m in Model)
+                                {
+
+                            <tr>
+
+                                <td>@m.id</td>
+                                <td>@m.nombre</td>
+                                <td>@m.dni</td>
+                                <td>@m.telefono</td>
+                                <td>@m.email</td>
+                                <td>@m.actividad.descripcion</td>
+                                <td>
+                                    @using (Html.BeginForm("Edit", "Profesor", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+
+                                        <input type="hidden" value="@m" name="Id" />
+                                        <input class="btn btn-block btn-warning" style="color:#ffffff; font-weight:400;" type="submit" value="Editar" />
+                                    }
+                                </td>
+                                <td>
+                                    @using (Html.BeginForm("Delete", "Profesor", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        
+                                        <input type="hidden" value="@m.id" name="Id" />
+                                        <input class="btn btn-block btn-danger" type="submit" value="Borrar" />
+                                    }
+                                </td>
+                            </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer clearfix">
+                        <ul class="pagination pagination-sm no-margin pull-right">
+                            <li><a href="#">«</a></li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">»</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+</section>

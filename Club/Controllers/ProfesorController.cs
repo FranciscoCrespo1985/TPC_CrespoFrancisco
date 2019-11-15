@@ -13,7 +13,8 @@ namespace Club.Controllers
         // GET: Profesor
         public ActionResult Index()
         {
-            return View();
+
+            return View(lista.listaProfesor());
         }
 
         // GET: Profesor/Details/5
@@ -65,8 +66,9 @@ namespace Club.Controllers
         }
 
         // GET: Profesor/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(Profesor p)
         {
+
             return View();
         }
 

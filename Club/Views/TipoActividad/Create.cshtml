@@ -2,26 +2,31 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
 
-    <h1>Ingrese el nuevo tipo de actividad</h1>
-    
-    <div class="box box-primary">
-        
-        <!-- /.box-header -->
-        <!-- form start -->
-        <form role="form" method="POST" name="collection">
-            
-                <div class="box-body">
-                    <div class="input-group input-group-sm">
-                        <input type="text" name="descripcionTipoActividad" id="descripcionTipoActividad" class="form-control">
-                        <br /><br />
-                    </div>
-                </div>
-            
-            <!-- /.box-body -->
+        @Html.ActionLink("Index", "Index", "TipoActividad")
+    </li>
+    <li class="breadcrumb-item active">Crear</li>
+</ol>
 
-            <div class="box-footer">
-                <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+<div class="box box-primary">
+
+    <!-- /.box-header -->
+    <!-- form start -->
+    <form role="form" method="POST" name="collection">
+
+        <div class="box-body">
+            <div class="input-group input-group-sm">
+                <input type="text" name="descripcionTipoActividad" id="descripcionTipoActividad" class="form-control">
+                <br /><br />
             </div>
-        </form>
-    </div>
+        </div>
+
+        <!-- /.box-body -->
+
+        <div class="box-footer">
+            <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+        </div>
+    </form>
+</div>

@@ -98,6 +98,7 @@ namespace Club.Controllers
         // GET: Locacion/Edit/5
         public ActionResult Edit(int id)
         {
+            
             return View();
         }
 

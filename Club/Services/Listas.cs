@@ -110,6 +110,39 @@ namespace Club.Services
             return tiposSubscripciones;
         }
 
+
+        public Profesor seleccionarProfesor(int id) {
+            List<Profesor> lProfesor = new List<Profesor>();
+            AccesoDatos datos = new AccesoDatos();
+            Profesor aux;
+
+
+            try
+            {
+                datos.setearQuery("select * from profesor as p" +
+                              " inner join tiposActividad as tp on p.ID_Actividad_Tipo = tp.id where p.id = "+id.ToString());
+                datos.ejecutarLector();
+                
+                    aux = new Profesor();
+                    aux.actividad = new ActividadTipo();
+                    aux.id = datos.lector.GetInt32(0);
+                    aux.nombre = datos.lector.GetString(1);
+                    aux.dni = datos.lector.GetString(2);
+                    aux.telefono = datos.lector.GetString(3);
+                    aux.email = datos.lector.GetString(4);
+                    aux.actividad.id = datos.lector.GetInt32(6);
+                    aux.actividad.descripcion = datos.lector.GetString(7);
+
+                    lProfesor.Add(aux);
+                
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            return aux;
+        }
         public List<Profesor> listaProfesor() {
             List<Profesor> lProfesor = new List<Profesor>();
             AccesoDatos datos = new AccesoDatos();
