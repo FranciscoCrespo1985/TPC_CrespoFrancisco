@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Club.Services;
+using Club.Models;
 
 namespace Club.Controllers
 {
@@ -12,6 +14,17 @@ namespace Club.Controllers
         public ActionResult Index()
         {
             return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult Index(FormCollection collection)
+        {
+            Listas l = new Listas();
+            Socio s;
+            s = l.getPassword(Convert.ToString(collection["email"]));
+            if (s.pwd == Convert.ToString(collection["password"]))
+                return Redirect("/UserCalendar");
+            return View();
         }
 
         public ActionResult Login()

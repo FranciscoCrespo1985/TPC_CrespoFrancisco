@@ -4,11 +4,18 @@
     Club.Models.PosibleHours hours = new Club.Models.PosibleHours();
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
-  
+
 
 }
 
-<h2>Create</h2>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+
+        @Html.ActionLink("Index", "Index", "Horario")
+    </li>
+    <li class="breadcrumb-item active">Crear</li>
+</ol>
+
 
 <section class="content">
     <div class="container-fluid">
@@ -145,11 +152,11 @@
     <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
 
     <script>
-         $(function () {
+        $(function () {
             $(".fechaInicio").datepicker({
                 dateFormat: "dd/mm/yy",
                 changeMonth: true,
-                changeYear:true
+                changeYear: true
             });
         });
 
@@ -158,7 +165,7 @@
             $(".fechaFin").datepicker({
                 dateFormat: "dd/mm/yy",
                 changeMonth: true,
-                changeYear:true
+                changeYear: true
             });
         });
 

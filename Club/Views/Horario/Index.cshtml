@@ -1,8 +1,107 @@
-﻿
+﻿@model List<Club.Models.Horario>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    
 }
 
-<h2>Index</h2>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            @Html.ActionLink("Crear", "Create", "Locacion")
+            
+        </li>
+        <li class="breadcrumb-item active">Index</li>
+
+
+    </ol>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-6">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Bordered Table</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+
+                                        <th>Id:</th>
+                                        <th>Hora Inicio:</th>
+                                        <th>Hora Fin:</th>
+                                        <th>Fecha I Actividad:</th>
+                                        <th>Fecha Fin Actividad:</th>
+                                        <th>Cupo:</th>
+                                        <th>Cant Inscriptos:</th>
+
+                                        <th>Dias:</th>
+                                        
+
+                                    </tr>
+                                    @foreach (var m in Model)
+                                    {
+
+                                <tr>
+
+                                    <td>@m.id</td>
+                                    <td>@m.horaInicio</td>
+                                    <td>@m.horaFin</td>
+                                    <td>@m.fechaInicioActividad</td>
+                                    <td>@m.fechaFinActividad</td>
+                                    <td>@m.cupo</td>
+                                    <td>@m.cantInscriptos</td>
+
+                                    
+                                     
+                                        <td>@m.diasXSemana()</td>
+                                    
+                                   
+
+                                    <td>
+                                        @using (Html.BeginForm("Edit", "Horario", FormMethod.Post))
+                                        {
+                                            @Html.AntiForgeryToken()
+
+                                            <input type="hidden" value="@m" name="Id" />
+                                            <input class="btn btn-block btn-warning" style="color:#ffffff; font-weight:400;" type="submit" value="Editar" />
+                                        }
+                                    </td>
+                                    <td>
+                                        @using (Html.BeginForm("Delete", "Horario", FormMethod.Post))
+                                        {
+                                            @Html.AntiForgeryToken()
+
+                                            <input type="hidden" value="@m.id" name="Id" />
+                                            <input class="btn btn-block btn-danger" type="submit" value="Borrar" />
+                                        }
+                                    </td>
+                                </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer clearfix">
+                            <ul class="pagination pagination-sm no-margin pull-right">
+                                <li><a href="#">«</a></li>
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">»</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+    </section>
 

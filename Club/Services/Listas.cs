@@ -38,7 +38,7 @@ namespace Club.Services
             return tiposActividades;
         }
 
-        internal List<Horario> listaHorario()
+        public List<Horario> listaHorario()
         {
             AccesoDatos datos = new AccesoDatos();
             Horario aux;
@@ -78,6 +78,48 @@ namespace Club.Services
                 throw ex;
             }
             return horarios;
+        }
+
+        public Socio getPassword(string email) {
+            AccesoDatos datos = new AccesoDatos();
+            Socio aux = new Socio();
+            
+            try
+            {
+
+                datos.setearQuery("select * from socios as s " +
+                    "inner join tiposSubscripcion as ts on ts.id_subscripcion = s.id_tiposSubscripcion " +
+                    "where s.email = @email");
+                datos.agregarParametro("@email",email);
+                datos.ejecutarLector();
+                datos.lector.Read();
+                
+                aux = new Socio();
+
+                aux.subscripcionTipo = new SubscripcionTipo();
+                aux.id = datos.lector.GetInt32(0);
+                aux.dni = datos.lector.GetString(2);
+                aux.nombre = datos.lector.GetString(3);
+                aux.apellido = datos.lector.GetString(4);
+                aux.telefono = datos.lector.GetString(5);
+                aux.email = datos.lector.GetString(6);
+                aux.pwd = datos.lector.GetString(7);
+                aux.subscripcionTipo.id = datos.lector.GetInt32(8);
+                aux.subscripcionTipo.descripcion = datos.lector.GetString(9);
+
+
+                    
+                
+                datos.cerrarConexion();
+
+            }
+            catch (Exception ex)
+            {
+                datos.cerrarConexion();
+                throw;
+            }
+            return aux;
+
         }
 
         public List<SubscripcionTipo> ListaSocioTipo()
@@ -178,6 +220,46 @@ namespace Club.Services
 
             return lProfesor;
         }
+
+
+        public List<Profesor> listaProfesor(int actividad)
+        {
+            List<Profesor> lProfesor = new List<Profesor>();
+            AccesoDatos datos = new AccesoDatos();
+            Profesor aux;
+
+
+            try
+            {
+                datos.setearQuery("select * from profesor as p" +
+                              " inner join tiposActividad as tp on p.ID_Actividad_Tipo = tp.id where p.ID_Actividad_Tipo =@ID_Actividad_Tipo ");
+                datos.agregarParametro("@ID_Actividad_Tipo", actividad);
+                datos.ejecutarLector();
+                while (datos.lector.Read())
+                {
+                    aux = new Profesor();
+                    aux.actividad = new ActividadTipo();
+                    aux.id = datos.lector.GetInt32(0);
+                    aux.nombre = datos.lector.GetString(1);
+                    aux.dni = datos.lector.GetString(2);
+                    aux.telefono = datos.lector.GetString(3);
+                    aux.email = datos.lector.GetString(4);
+                    aux.actividad.id = datos.lector.GetInt32(6);
+                    aux.actividad.descripcion = datos.lector.GetString(7);
+
+                    lProfesor.Add(aux);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+
+            return lProfesor;
+        }
+
 
         public List<Locacion> listaLocacion()
         {

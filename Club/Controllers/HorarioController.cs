@@ -9,10 +9,12 @@ namespace Club.Controllers
 {
     public class HorarioController : Controller
     {
+        
         // GET: Horario
         public ActionResult Index()
         {
-            return View();
+            Listas l = new Listas();
+            return View(l.listaHorario());
         }
 
         // GET: Horario/Details/5

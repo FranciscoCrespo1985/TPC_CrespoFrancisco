@@ -10,8 +10,9 @@ namespace Club.Models
         public long id { get; set; }
         public ActividadTipo tipo{ get; set; }
         public Profesor profesor { get; set; }
-        public Locacion Locacion { get; set; }        
-        
+        public Locacion locacion { get; set; }
+        public Horario horario { get; set; }
+
     }
 
 

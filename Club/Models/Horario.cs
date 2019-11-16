@@ -30,5 +30,17 @@ namespace Club.Models
             s += " Cupo: " + cupo;
             return s ;
         }
+        public string diasXSemana() {
+            string s = "";
+            
+            s += (dias[0] == true) ? "Lunes" : "";
+            s += (dias[1] == true) ? " - Martes" : "";
+            s += (dias[2] == true) ? " - Miercoles" : "";
+            s += (dias[3] == true) ? " - Jueves" : "";
+            s += (dias[4] == true) ? " - Viernes" : "";
+            s += (dias[5] == true) ? " - Sabado" : "";
+            s += (dias[6] == true) ? " - Domingo" : "";
+            return s;
+        }
     }
 }
