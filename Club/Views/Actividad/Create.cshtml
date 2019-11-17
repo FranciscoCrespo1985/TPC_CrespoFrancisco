@@ -26,44 +26,54 @@
 
                             <div class="form-group">
                                 <label for="idTipo">Tipo De actividad</label>
-                                <select class="form-control" id="idTipo" name="idTipo" onselect="filtrarTipo()">
-                                    @foreach (var c in Model.lTipo)
-                                    {
+                                <select class="form-control" id="idTipo" name="idTipo">
+                                    
+                                        @foreach (var c in Model.lTipo)
+                                        {
                                         <option value="@c.id">@c.descripcion</option>
-                                    }
+                                        }
+                                    
 
                                 </select>
                             </div>
 
                             <div class="form-group">
                                 <label for="Id">PROFESOR</label>
-                                <select class="form-control" name="idProfesor">
-                                    @foreach (var c in Model.lProfesor)
+                                <select class="form-control" id="idProfesor" name="idProfesor">
+                                    @if (Model != null)
                                     {
-                                        <option value="@c.id">@c.nombre</option>
+                                        foreach (var c in Model.lProfesor)
+                                        {
+                                            <option value="@c.id">@c.nombre</option>
+                                        }
                                     }
-
-                                </select>
+                                    </select>
                             </div>
 
                             <div class="form-group">
                                 <label for="Id">Locacion</label>
-                                <select class="form-control" name="idDescripcion">
-                                    @foreach (var c in Model.lLocacion)
+                                <select class="form-control" id="idLocacion" name="idLocacion">
+                                    @if (Model != null)
                                     {
-                                        <option value="@c.id">@c.descripcion</option>
+                                        foreach (var c in Model.lLocacion)
+                                        {
+                                            <option value="@c.id">@c.descripcion</option>
+                                        }
                                     }
-                                </select>
+                                    </select>
                             </div>
 
                             <div class="form-group">
                                 <label for="Id">Horario</label>
                                 <select class="form-control" name="idHorario">
-                                    @foreach (var c in Model.lHorarios)
+                                    @if (Model != null)
                                     {
-                                        <option value="@c.id">@c.ToString()</option>
+                                        foreach (var c in Model.lHorarios)
+                                        {
+                                            <option value="@c.id">@c.ToString()</option>
+                                        }
                                     }
-                                </select>
+                                    </select>
                             </div>
 
                             /* <div class="form-group">
@@ -95,30 +105,49 @@
 
 @section Scripts
 {
-    <script type="text/javascript">
-      
-
+    <script>
         $("#idTipo").change(function () {
             //if ($("#listaSist").val() == "Seleccionar") { return false;}
             $("#idProfesor").empty();
+            $("#idLocacion").empty();
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("getProfesor")',
                 dataType: 'json',
                 data: {
-                    id: $("#id").val(),
-                    nombre: $("#nombre").val();                    
+                    idActividad: $("#idTipo").val(),                    
                 },
                 success: function (puntos) {
                     $.each(puntos, function (i, punto) {
-                        $("#idProfesor").append('<option value="' + idProfesor.id + '">' +
-                            idProfesor.nombre + '</option>');
+                        $("#idProfesor").append('<option value="' + punto.Value + '">' +
+                            punto.Text + '</option>');
                     });
                 },
                 error: function (ex) {
                     alert('Error al cargar los Puntos. ' + ex);
                 }
-            });
+            });    
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("getLocacion")',
+                dataType: 'json',
+                data: {
+                    idActividad: $("#idTipo").val(),                    
+                },
+                success: function (puntos) {
+                    $.each(puntos, function (i, punto) {
+                        $("#idLocacion").append('<option value="' + punto.Value + '">' +
+                            punto.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Error al cargar los Puntos. ' + ex);
+                }
+            });  
+           
+
         });
+        
     </script>
+    
 }

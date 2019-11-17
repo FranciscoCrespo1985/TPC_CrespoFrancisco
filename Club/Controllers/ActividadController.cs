@@ -37,14 +37,16 @@ namespace Club.Controllers
             AccesoDatos datos = new AccesoDatos();
             try
             {
+               
+                
+                actividad.tipo.id = Convert.ToInt64(collection["idTipo"]);
                 actividad.profesor.id = Convert.ToInt32(collection["idProfesor"]);
                 actividad.locacion.id = Convert.ToInt32(collection["idLocacion"]);
                 actividad.horario.id = Convert.ToInt64(collection["idHorario"]);
-                
 
                 datos.setearQuery("insert into actividad(id_profesor,id_actividad_tipo,id_locacion,id_horario) values(@id_profesor,@id_actividad_tipo,@id_locacion,@id_horario)");
                 datos.agregarParametro("@id_profesor", actividad.profesor.id);
-                datos.agregarParametro("@id_actividad_tipo", actividad.profesor.actividad.id);
+                datos.agregarParametro("@id_actividad_tipo", actividad.tipo.id);
                 datos.agregarParametro("@id_locacion", actividad.locacion.id);
                 datos.agregarParametro("@id_horario", actividad.horario.id);
                 datos.ejecutarAccion();
@@ -53,10 +55,11 @@ namespace Club.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
                 datos.cerrarConexion();
-                return View();
+                throw ex;
+                
             }
         }
 
@@ -111,7 +114,7 @@ namespace Club.Controllers
                 // convierto el string que recibo a entero
                 int IdAct = idActividad != null && idActividad != "" ? Convert.ToInt32(idActividad) : 0;
                 // acá armas la lista de profesores y la devolves en un JSON 
-                return Json(new SelectList(listar.listaProfesor(IdAct), "Id", "Nombre"));
+                return Json(new SelectList(listar.listaProfesor(IdAct), "id", "Nombre"));
             }
             catch (Exception ex)
             {
@@ -120,6 +123,26 @@ namespace Club.Controllers
             finally
             {
                
+            }
+
+        }
+        public JsonResult getLocacion(string idActividad)
+        {
+            Listas listar = new Listas();
+            try
+            {
+                // convierto el string que recibo a entero
+                int idLoc = idActividad != null && idActividad != "" ? Convert.ToInt32(idActividad) : 0;
+                // acá armas la lista de profesores y la devolves en un JSON 
+                return Json(new SelectList(listar.listaLocacion(idLoc), "id", "descripcion"));
+            }
+            catch (Exception ex)
+            {
+                return Json(ex);
+            }
+            finally
+            {
+
             }
 
         }

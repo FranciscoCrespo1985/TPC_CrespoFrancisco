@@ -295,7 +295,42 @@ namespace Club.Services
             return locaciones;
         }
 
-        
+        public List<Locacion> listaLocacion(int id)
+        {
+            List<Locacion> locaciones = new List<Locacion>();
+            AccesoDatos datos = new AccesoDatos();
+            Locacion aux;
+
+
+            try
+            {
+                datos.setearQuery("select * from Locacion as p" +
+                              " inner join tiposActividad as tp on p.ID_Actividad_Tipo = tp.id where p.ID_Actividad_Tipo = @id");
+                datos.agregarParametro("@id", id);
+                datos.ejecutarLector();
+                while (datos.lector.Read())
+                {
+                    aux = new Locacion();
+                    aux.tipo = new ActividadTipo();
+                    aux.id = datos.lector.GetInt32(0);
+                    aux.descripcion = datos.lector.GetString(2);
+                    aux.tipo.id = datos.lector.GetInt32(3);
+                    aux.tipo.descripcion = datos.lector.GetString(4);
+
+                    locaciones.Add(aux);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+
+            return locaciones;
+        }
+
+
 
     }
 
