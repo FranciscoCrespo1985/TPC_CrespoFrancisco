@@ -8,6 +8,8 @@ namespace Club.Services
 {
     public class Listas
     {
+
+        
         public List<ActividadTipo> ListaActividadTipo()
         {
             AccesoDatos datos = new AccesoDatos();
@@ -328,6 +330,45 @@ namespace Club.Services
 
 
             return locaciones;
+        }
+        public List<Actividad> ListaActividades()
+        {
+            AccesoDatos datos = new AccesoDatos();
+            Actividad aux;
+            List<Actividad> actividades = new List<Actividad>();
+
+            try
+            {
+
+                datos.setearQuery("Select * from actividad");
+                datos.ejecutarLector();
+                while (datos.lector.Read())
+                {
+                    aux = new Actividad();
+                    aux.tipo = new ActividadTipo();
+                    aux.profesor = new Profesor();
+                    aux.locacion = new Locacion();
+                    aux.horario = new Horario();
+
+                    aux.id = datos.lector.GetInt32(0);
+                    aux.profesor.id = datos.lector.GetInt32(1);
+                    aux.tipo.id =  datos.lector.GetInt32(2);
+                    aux.horario.id = datos.lector.GetInt64(3);
+                    aux.locacion.id = datos.lector.GetInt32(4);
+
+                    
+                    actividades.Add(aux);
+
+                }
+                datos.cerrarConexion();
+
+            }
+            catch (Exception ex)
+            {
+                datos.cerrarConexion();
+                throw;
+            }
+            return actividades;
         }
 
 

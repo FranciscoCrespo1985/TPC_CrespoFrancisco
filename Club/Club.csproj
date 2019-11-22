@@ -137,7 +137,7 @@
     <Compile Include="Models\EstadoReserva.cs" />
     <Compile Include="Models\Horario.cs" />
     <Compile Include="Models\Locacion.cs" />
-    <Compile Include="Models\mvListaActividadComponentes.cs" />
+    <Compile Include="Models\MVListaActividadComponentes.cs" />
     <Compile Include="Models\PosibleHours.cs" />
     <Compile Include="Models\Profesor.cs" />
     <Compile Include="Models\Reserva.cs" />

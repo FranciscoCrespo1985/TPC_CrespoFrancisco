@@ -13,7 +13,19 @@ namespace Club.Controllers
         // GET: Actividad
         public ActionResult Index()
         {
-            return View();
+            Listas l = new Listas();
+            List<Actividad> actividad = l.ListaActividades();
+            MVListaActividadComponentes mvL = new MVListaActividadComponentes();
+            foreach (var item in actividad)
+            {
+                item.horario = mvL.lHorarios.Find(e => e.id == item.horario.id);
+                item.locacion = mvL.lLocacion.Find(e => e.id == item.locacion.id);
+                item.profesor = mvL.lProfesor.Find(e => e.id == item.profesor.id);
+                item.tipo = mvL.lTipo.Find(e => e.id == item.tipo.id);
+            }
+           
+            
+            return View(actividad);
         }
 
         // GET: Actividad/Details/5
@@ -25,7 +37,7 @@ namespace Club.Controllers
         // GET: Actividad/Create
         public ActionResult Create()
         {
-            mvListaActividadComponentes mv = new mvListaActividadComponentes();
+            MVListaActividadComponentes mv = new MVListaActividadComponentes();
             return View(mv);
         }
 
@@ -146,6 +158,7 @@ namespace Club.Controllers
             }
 
         }
+        
 
     }
     

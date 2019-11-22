@@ -7,7 +7,7 @@ using Club.Services;
 
 namespace Club.Models
 {
-    public class mvListaActividadComponentes
+    public class MVListaActividadComponentes
     {
 
         Listas l = new Listas();
@@ -17,7 +17,7 @@ namespace Club.Models
         public List<Horario> lHorarios { get; set; }
 
 
-        public mvListaActividadComponentes()
+        public MVListaActividadComponentes()
         {
             lTipo = l.ListaActividadTipo();
             lProfesor = l.listaProfesor();
