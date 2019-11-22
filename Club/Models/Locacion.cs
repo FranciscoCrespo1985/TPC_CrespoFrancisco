@@ -12,6 +12,6 @@ namespace Club.Models
 
         public ActividadTipo tipo { get; set; }
 
-
+        
     }
 }
