@@ -15,6 +15,8 @@ namespace Club.Models
         public int cupo { get; set; }
         public int cantInscriptos { get; set; }
         public List<bool> dias { get; set; }
+        public int id_locacion { get; set; }
+
 
         public override string ToString()
         {

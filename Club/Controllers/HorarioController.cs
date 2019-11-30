@@ -26,6 +26,8 @@ namespace Club.Controllers
         // GET: Horario/Create
         public ActionResult Create()
         {
+
+     
             return View();
         }
 
@@ -142,5 +144,43 @@ namespace Club.Controllers
                 return View();
             }
         }
+
+        public JsonResult getCancha(string idTipo) 
+        {
+            Listas listar = new Listas();
+    
+            try
+            {
+                // convierto el string que recibo a entero
+                int idLoc = idTipo != null && idTipo != "" ? Convert.ToInt32(idTipo) : 0;
+                // acá armas la lista de profesores y la devolves en un JSON 
+                return Json(new SelectList(listar.listaLocacion(idLoc), "id", "descripcion"));
+            }
+            catch (Exception ex)
+            {
+                return Json(ex);
+            }
+            finally
+            {
+
+            }
+
+
+
+        }
+    }
+
+
+    public class MVListaTipoCancha 
+    {
+        Listas l = new Listas();
+        public List<Locacion> lLocacion { get; set; }
+        public List<ActividadTipo> lTipos { get; set; }
+
+        public MVListaTipoCancha() {
+            lLocacion = l.listaLocacion();
+            lTipos = l.ListaActividadTipo();
+        }
+
     }
 }

@@ -1,6 +1,9 @@
-﻿@model Club.Models.Horario
+﻿
+@model Club.Models.Horario
 
 @{
+
+    Club.Controllers.MVListaTipoCancha MVTP = new Club.Controllers.MVListaTipoCancha();
     Club.Models.PosibleHours hours = new Club.Models.PosibleHours();
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -33,6 +36,31 @@
                             new { ReturnUrl = ViewBag.ReturnUrl },
                             FormMethod.Post, new { @class = "login-form", name = "colletion" }))
                         {
+
+                            <div class="form-group">
+                                <label for="idTipo">Seleccione Deporte</label>
+                                <select class="form-control" id="idTipo" name="idTipo">
+                                    @foreach (var c in MVTP.lTipos)
+                                    {
+                                        <option value="@c.id">@c.descripcion</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="Cancha">Seleccione Cancha</label>
+                                <select class="form-control" id="Cancha" name="Cancha">
+                                    @if (Model != null) 
+                                    { 
+                                        foreach (var c in MVTP.lLocacion)
+                                        {
+                                            <option value="@c">@c.descripcion</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+
+
+
 
 
                             <div class="form-group">
@@ -168,6 +196,40 @@
                 changeYear: true
             });
         });
+
+
+         $("#idTipo").change(function () {
+            //if ($("#listaSist").val() == "Seleccionar") { return false;}
+            $("#Cancha").empty();            
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("getCancha")',
+                dataType: 'json',
+                data: {
+                    idTipo: $("#idTipo").val(),
+                },
+                success: function (puntos) {
+                    $.each(puntos, function (i, punto) {
+                        $("#Cancha").append('<option value="' + punto.Value + '">' +
+                            punto.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Error al cargar los Puntos. ' + ex);
+                }
+            });
+        });
+
+
+
+
+
+
+
+
+
+
+
 
 
 
