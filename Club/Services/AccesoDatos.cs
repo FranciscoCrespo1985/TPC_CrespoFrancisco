@@ -41,6 +41,7 @@ namespace Club.Services
             {
                 conexion.Open();
                 lector = comando.ExecuteReader();
+                
             }
             catch (Exception ex)
             {

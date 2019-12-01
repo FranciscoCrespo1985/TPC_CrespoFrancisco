@@ -35,17 +35,20 @@ namespace Club.Controllers
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
-            AccesoDatos datos = new AccesoDatos();
+
+
+
+
             Horario hora = new Horario();
-          
+
 
             hora.cupo = Convert.ToInt32(collection["cupo"]);
-            hora.fechaInicioActividad = DateTime.ParseExact((collection["fechaInicioActividad"]),"d/M/yyyy", null);
-            hora.fechaFinActividad = DateTime.ParseExact((collection["fechaFinActividad"]),"d/M/yyyy",null);
+            hora.fechaInicioActividad = DateTime.ParseExact((collection["fechaInicioActividad"]), "d/M/yyyy", null);
+            hora.fechaFinActividad = DateTime.ParseExact((collection["fechaFinActividad"]), "d/M/yyyy", null);
             hora.horaInicio = Convert.ToDateTime(collection["horainicio"]);
             hora.horaFin = Convert.ToDateTime(collection["horafin"]);
             hora.dias = new List<bool>();
-            
+            hora.id_locacion = Convert.ToInt32(collection["Cancha"]);
             hora.dias.Add(Convert.ToBoolean(collection["lunes"]));
             hora.dias.Add(Convert.ToBoolean(collection["martes"]));
             hora.dias.Add(Convert.ToBoolean(collection["miercoles"]));
@@ -54,20 +57,105 @@ namespace Club.Controllers
             hora.dias.Add(Convert.ToBoolean(collection["sabado"]));
             hora.dias.Add(Convert.ToBoolean(collection["domingo"]));
 
-
-            try
+            if (ValidateHorario(hora))
             {
-                datos.setearQuery("insert into horario(horaInicio,horaFin,fechaFinActividad,fechaInicioActividad,cupo,cantInscriptos,domingo,lunes,martes,miercoles,jueves,viernes,sabado)" +
-                    " values(@horaInicio,@horaFin,@fechaFinActividad,@fechaInicioActividad,@cupo,@cantInscriptos,@domingo,@lunes,@martes,@miercoles,@jueves,@viernes,@sabado)");
+                AccesoDatos datos = new AccesoDatos();
+                try
+                {
+                    datos.setearQuery("insert into horario(horaInicio,horaFin,fechaFinActividad,fechaInicioActividad,cupo,cantInscriptos,domingo,lunes,martes,miercoles,jueves,viernes,sabado,locacion_id)" +
+                        " values(@horaInicio,@horaFin,@fechaFinActividad,@fechaInicioActividad,@cupo,@cantInscriptos,@domingo,@lunes,@martes,@miercoles,@jueves,@viernes,@sabado,@locacion_id)");
 
-                datos.agregarParametro("@horaInicio",hora.horaInicio); 
-                datos.agregarParametro("@horaFin", hora.horaFin); 
+                    datos.agregarParametro("@horaInicio", hora.horaInicio);
+                    datos.agregarParametro("@horaFin", hora.horaFin);
+                    datos.agregarParametro("@fechaFinActividad", hora.fechaFinActividad);
+                    datos.agregarParametro("@fechaInicioActividad", hora.fechaInicioActividad);
+                    datos.agregarParametro("@cupo", hora.cupo);
+                    datos.agregarParametro("@cantInscriptos", hora.cantInscriptos);
+
+
+                    datos.agregarParametro("@lunes", hora.dias[0]);
+                    datos.agregarParametro("@martes", hora.dias[1]);
+                    datos.agregarParametro("@miercoles", hora.dias[2]);
+                    datos.agregarParametro("@jueves", hora.dias[3]);
+                    datos.agregarParametro("@viernes", hora.dias[4]);
+                    datos.agregarParametro("@sabado", hora.dias[5]);
+                    datos.agregarParametro("@domingo", hora.dias[6]);
+                    datos.agregarParametro("@locacion_id", hora.id_locacion);
+
+                    datos.ejecutarAccion();
+                    datos.cerrarConexion();
+
+                    return RedirectToAction("Index");
+
+
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+            }
+            return RedirectToAction("Create");
+        }
+            
+            
+        
+
+        private bool ValidateHorario(Horario hora)
+        {
+
+            Listas l = new Listas();
+            List <Horario> lh = l.listaHorario();
+            foreach (var i in lh) 
+            {
+                if(hora.id_locacion ==i.id_locacion) 
+                {
+                    if((hora.fechaInicioActividad <= i.fechaInicioActividad && hora.fechaFinActividad>=i.fechaFinActividad)   || (hora.fechaInicioActividad >= i.fechaInicioActividad && hora.fechaInicioActividad<=i.fechaFinActividad) || (hora.fechaFinActividad <=i.fechaFinActividad &&hora.fechaFinActividad >=i.fechaInicioActividad))
+                    {
+                        if ((hora.dias[0]) && (i.dias[0]) || (hora.dias[1]) && (i.dias[1]) || (hora.dias[2]) && (i.dias[2]) || (hora.dias[3] && i.dias[3]) || (hora.dias[4] && i.dias[4]) || (hora.dias[5] && i.dias[5]) || (hora.dias[6] && i.dias[6])) {
+                            if ((hora.horaInicio <= i.horaInicio && hora.horaFin >= i.horaFin) || (hora.horaInicio >= i.horaInicio && hora.horaInicio <= i.horaFin) || (hora.horaFin <= i.horaFin && hora.horaFin >= i.horaInicio)) {
+                                return false;
+                            }
+                        }
+                    } 
+                }
+            }
+
+            return true;
+
+
+
+#region sqltry
+           /* try
+            {
+                datos.setearQuery("select * from horario where " +
+                    "locacion_id = @locacion_id " +
+                    "and " +
+                    "(" +
+                    "lunes = @lunes " +
+                    "or martes = @martes " +
+                    "or miercoles = @miercoles " +
+                    "or jueves = @jueves " +
+                    "or viernes = @viernes " +
+                    "or sabado = @sabado " +
+                    "or domingo = @domingo" +
+                    ") " +
+                    "and " +
+                    "(" +
+                    "cast(@horainicio as time) between cast(horaInicio as time) and cast(horaFin as time) or cast(@horafin as time) between cast(horaInicio as time) and cast(horaFin as time) " +
+                    "or " +
+                    "(cast(@horainicio as time) <= cast(horaInicio as time) and cast(@horafin as time) >= cast(horaFin as time))" +
+                    ") " +
+                    "and ((@fechaInicioActividad between fechaInicioActividad and fechafinactividad or @fechafinactividad between fechaInicioActividad and fechafinactividad) " +
+                    "or (@fechaInicioActividad < fechaInicioActividad and @fechaFinActividad > fechaFinActividad ))");
+
+                datos.agregarParametro("@horaInicio", hora.horaInicio);
+                datos.agregarParametro("@horaFin", hora.horaFin);
                 datos.agregarParametro("@fechaFinActividad", hora.fechaFinActividad);
                 datos.agregarParametro("@fechaInicioActividad", hora.fechaInicioActividad);
-                datos.agregarParametro("@cupo", hora.cupo);
-                datos.agregarParametro("@cantInscriptos", hora.cantInscriptos);
+              
+        
 
-                
                 datos.agregarParametro("@lunes", hora.dias[0]);
                 datos.agregarParametro("@martes", hora.dias[1]);
                 datos.agregarParametro("@miercoles", hora.dias[2]);
@@ -75,20 +163,12 @@ namespace Club.Controllers
                 datos.agregarParametro("@viernes", hora.dias[4]);
                 datos.agregarParametro("@sabado", hora.dias[5]);
                 datos.agregarParametro("@domingo", hora.dias[6]);
+                datos.agregarParametro("@locacion_id", hora.id_locacion);
 
-                datos.ejecutarAccion();
-                datos.cerrarConexion();
-
-                return RedirectToAction("Index");
+    */
+#endregion
 
 
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            
             
         }
 
