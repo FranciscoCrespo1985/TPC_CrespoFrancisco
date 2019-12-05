@@ -107,14 +107,23 @@ namespace Club.Controllers
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
+            AccesoDatos datos = new AccesoDatos();
             try
             {
+                datos.setearQuery("delete from actividad where id =@id");
+                datos.agregarParametro("@id", id);
+                datos.ejecutarAccion();
+
                 // TODO: Add delete logic here
 
+                datos.cerrarConexion();
+
                 return RedirectToAction("Index");
+
             }
             catch
             {
+                datos.cerrarConexion();
                 return View();
             }
         }
@@ -158,7 +167,39 @@ namespace Club.Controllers
             }
 
         }
+
+        public JsonResult getHorario(string idLocacion)
+        {
+            Listas listar = new Listas();
+            try
+            {
+                // convierto el string que recibo a entero
+                int IdLoc = idLocacion != null && idLocacion != "" ? Convert.ToInt32(idLocacion) : 0;
+                // acá armas la lista de profesores y la devolves en un JSON 
+                return Json(new SelectList(listar.listaHorario(IdLoc), "id", "descripcion"));
+            }
+            catch (Exception ex)
+            {
+                return Json(ex);
+            }
+            finally
+            {
+
+            }
+
+        }
+
+        /*public JsonResult getHorario(string idLocacion) 
+        {
         
+        
+        
+        
+            
+        
+        }*/
+
+
 
     }
     

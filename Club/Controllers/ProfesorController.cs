@@ -96,16 +96,25 @@ namespace Club.Controllers
 
         // POST: Profesor/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(FormCollection collection)
         {
+            AccesoDatos datos = new AccesoDatos();
             try
             {
+                datos.setearQuery("delete from profesor where id =@id");
+                datos.agregarParametro("@id",collection["id"]);
+                datos.ejecutarAccion();
+
                 // TODO: Add delete logic here
 
+                datos.cerrarConexion();
+
                 return RedirectToAction("Index");
+
             }
             catch
             {
+                datos.cerrarConexion();
                 return View();
             }
         }

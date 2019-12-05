@@ -40,7 +40,7 @@ namespace Club.Services
             return tiposActividades;
         }
 
-        public List<Horario> listaHorario()
+        public List<Horario> listaHorario(int idLocacion)
         {
             AccesoDatos datos = new AccesoDatos();
             Horario aux;
@@ -48,11 +48,15 @@ namespace Club.Services
 
             try
             {
-                datos.setearQuery("select * from horario");
+                datos.setearQuery("select * from horario as h inner join locacion as l on l.id = h.locacion_id inner join tiposactividad as ta on ta.id = l.id_actividad_tipo where l.id=@idLocacion and h.id not in(select id_horario from actividad)");
+                datos.agregarParametro("@idLocacion", idLocacion);
                 datos.ejecutarLector();
                 while (datos.lector.Read())
                 {
                     aux = new Horario();
+                    aux.locacion = new Locacion();
+                    aux.locacion.tipo = new ActividadTipo();
+
                     aux.dias = new List<bool>();
                     aux.id = datos.lector.GetInt64(0);
                     aux.horaInicio = datos.lector.GetDateTime(1);
@@ -68,6 +72,61 @@ namespace Club.Services
                     aux.dias.Add(datos.lector.GetBoolean(11));
                     aux.dias.Add(datos.lector.GetBoolean(12));
                     aux.dias.Add(datos.lector.GetBoolean(13));
+                    aux.locacion.id = datos.lector.GetInt32(14);
+                    aux.locacion.tipo.id = datos.lector.GetInt32(16);
+                    aux.locacion.descripcion = datos.lector.GetString(17);
+                    aux.locacion.tipo.descripcion = datos.lector.GetString(19);
+                    horarios.Add(aux);
+                }
+                datos.cerrarConexion();
+
+            }
+            catch (Exception ex)
+            {
+                datos.cerrarConexion();
+                throw ex;
+            }
+            return horarios;
+        }
+
+
+
+
+        public List<Horario> listaHorario()
+        {
+            AccesoDatos datos = new AccesoDatos();
+            Horario aux;
+            List<Horario> horarios = new List<Horario>();
+
+            try
+            {
+                datos.setearQuery("select * from horario as h inner join locacion as l on l.id = h.locacion_id inner join tiposactividad as ta on ta.id = l.id_actividad_tipo order by ta.id");
+                datos.ejecutarLector();
+                while (datos.lector.Read())
+                {
+                    aux = new Horario();
+                    aux.locacion = new Locacion();
+                    aux.locacion.tipo = new ActividadTipo();
+
+                    aux.dias = new List<bool>();                   
+                    aux.id = datos.lector.GetInt64(0);
+                    aux.horaInicio = datos.lector.GetDateTime(1);
+                    aux.horaFin = datos.lector.GetDateTime(2);
+                    aux.fechaFinActividad = datos.lector.GetDateTime(3);
+                    aux.fechaInicioActividad = datos.lector.GetDateTime(4);
+                    aux.cupo = datos.lector.GetInt32(5);
+                    aux.cantInscriptos = datos.lector.GetInt32(6);
+                    aux.dias.Add(datos.lector.GetBoolean(7));
+                    aux.dias.Add(datos.lector.GetBoolean(8));
+                    aux.dias.Add(datos.lector.GetBoolean(9));
+                    aux.dias.Add(datos.lector.GetBoolean(10));
+                    aux.dias.Add(datos.lector.GetBoolean(11));
+                    aux.dias.Add(datos.lector.GetBoolean(12));
+                    aux.dias.Add(datos.lector.GetBoolean(13));
+                    aux.locacion.id = datos.lector.GetInt32(14);
+                    aux.locacion.tipo.id = datos.lector.GetInt32(16);
+                    aux.locacion.descripcion = datos.lector.GetString(17);
+                    aux.locacion.tipo.descripcion = datos.lector.GetString(19);
                     horarios.Add(aux);
 
                 }
@@ -118,7 +177,8 @@ namespace Club.Services
             catch (Exception ex)
             {
                 datos.cerrarConexion();
-                throw;
+                return null;
+                
             }
             return aux;
 
@@ -325,7 +385,7 @@ namespace Club.Services
             catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
 
 

@@ -2,7 +2,10 @@
 
 @{
     ViewBag.Title = "Login";
+    Session["idSocio" + Session.SessionID] = new Club.Models.Socio() { subscripcionTipo = new Club.Models.SubscripcionTipo() { descripcion = " " } };
+
 }
+
 <!doctype html>
     
     <html>

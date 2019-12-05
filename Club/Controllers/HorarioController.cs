@@ -40,7 +40,7 @@ namespace Club.Controllers
 
 
             Horario hora = new Horario();
-
+            hora.locacion = new Locacion();
 
             hora.cupo = Convert.ToInt32(collection["cupo"]);
             hora.fechaInicioActividad = DateTime.ParseExact((collection["fechaInicioActividad"]), "d/M/yyyy", null);
@@ -48,7 +48,7 @@ namespace Club.Controllers
             hora.horaInicio = Convert.ToDateTime(collection["horainicio"]);
             hora.horaFin = Convert.ToDateTime(collection["horafin"]);
             hora.dias = new List<bool>();
-            hora.id_locacion = Convert.ToInt32(collection["Cancha"]);
+            hora.locacion.id = Convert.ToInt32(collection["Cancha"]);
             hora.dias.Add(Convert.ToBoolean(collection["lunes"]));
             hora.dias.Add(Convert.ToBoolean(collection["martes"]));
             hora.dias.Add(Convert.ToBoolean(collection["miercoles"]));
@@ -80,7 +80,7 @@ namespace Club.Controllers
                     datos.agregarParametro("@viernes", hora.dias[4]);
                     datos.agregarParametro("@sabado", hora.dias[5]);
                     datos.agregarParametro("@domingo", hora.dias[6]);
-                    datos.agregarParametro("@locacion_id", hora.id_locacion);
+                    datos.agregarParametro("@locacion_id", hora.locacion.id);
 
                     datos.ejecutarAccion();
                     datos.cerrarConexion();
@@ -108,11 +108,12 @@ namespace Club.Controllers
             List <Horario> lh = l.listaHorario();
             foreach (var i in lh) 
             {
-                if(hora.id_locacion ==i.id_locacion) 
+                if(hora.locacion.id ==i.locacion.id) 
                 {
                     if((hora.fechaInicioActividad <= i.fechaInicioActividad && hora.fechaFinActividad>=i.fechaFinActividad)   || (hora.fechaInicioActividad >= i.fechaInicioActividad && hora.fechaInicioActividad<=i.fechaFinActividad) || (hora.fechaFinActividad <=i.fechaFinActividad &&hora.fechaFinActividad >=i.fechaInicioActividad))
                     {
-                        if ((hora.dias[0]) && (i.dias[0]) || (hora.dias[1]) && (i.dias[1]) || (hora.dias[2]) && (i.dias[2]) || (hora.dias[3] && i.dias[3]) || (hora.dias[4] && i.dias[4]) || (hora.dias[5] && i.dias[5]) || (hora.dias[6] && i.dias[6])) {
+                        if (((hora.dias[0]) && (i.dias[0])) || ((hora.dias[1]) && (i.dias[1])) || ((hora.dias[2]) && (i.dias[2])) || ((hora.dias[3] && i.dias[3])) || ((hora.dias[4] && i.dias[4])) || ((hora.dias[5] && i.dias[5])) || ((hora.dias[6] && i.dias[6]))) 
+                         {
                             if ((hora.horaInicio <= i.horaInicio && hora.horaFin >= i.horaFin) || (hora.horaInicio >= i.horaInicio && hora.horaInicio <= i.horaFin) || (hora.horaFin <= i.horaFin && hora.horaFin >= i.horaInicio)) {
                                 return false;
                             }
@@ -202,13 +203,13 @@ namespace Club.Controllers
 
         // POST: Horario/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(FormCollection collection)
         {
             AccesoDatos datos = new AccesoDatos();
             try
             {
                 datos.setearQuery("delete from horario where id =@id");
-                datos.agregarParametro("@id", id);
+                datos.agregarParametro("@id", collection["id"]);
                 datos.ejecutarAccion();
 
                 // TODO: Add delete logic here

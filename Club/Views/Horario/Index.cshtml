@@ -38,7 +38,8 @@
                                         <th>Cant Inscriptos:</th>
 
                                         <th>Dias:</th>
-                                        
+                                        <th>Locacion:</th>
+
 
                                     </tr>
                                     @foreach (var m in Model)
@@ -47,16 +48,17 @@
                                 <tr>
 
                                     <td>@m.id</td>
-                                    <td>@m.horaInicio</td>
-                                    <td>@m.horaFin</td>
-                                    <td>@m.fechaInicioActividad</td>
-                                    <td>@m.fechaFinActividad</td>
+                                    <td>@m.horaInicio.Hour:@m.horaInicio.Minute</td>
+                                    <td>@m.horaFin.Hour:@m.horaFin.Minute</td>
+                                    <td>@m.fechaInicioActividad.Day/@m.fechaInicioActividad.Month/@m.fechaInicioActividad.Year</td>
+                                    <td>@m.fechaFinActividad.Day/@m.fechaFinActividad.Month/@m.fechaFinActividad.Year</td>
                                     <td>@m.cupo</td>
                                     <td>@m.cantInscriptos</td>
 
                                     
                                      
                                         <td>@m.diasXSemana()</td>
+                                    <td>@m.locacion.tipo.descripcion @m.locacion.descripcion</td>
                                     
                                    
 

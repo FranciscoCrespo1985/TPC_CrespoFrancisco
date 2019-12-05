@@ -22,8 +22,14 @@ namespace Club.Controllers
             Listas l = new Listas();
             Socio s;
             s = l.getPassword(Convert.ToString(collection["email"]));
+            if (s == null) return Redirect("/login");
             if (s.pwd == Convert.ToString(collection["password"]))
+            {
+                Session["idSocio" + Session.SessionID]=s;
+                s = (Socio)Session["idSocio" + Session.SessionID];
+                
                 return Redirect("/UserCalendar");
+            }
             return View();
         }
 

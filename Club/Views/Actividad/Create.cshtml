@@ -4,7 +4,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+
+            @Html.ActionLink("Index", "Index", "Actividad")
+        </li>
+        <li class="breadcrumb-item active">Create</li>
+    </ol>
 
 <section class="content">
     <div class="container-fluid">
@@ -12,7 +18,7 @@
             <div class="col-6">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Ingresar Profesor</h3>
+                        <h3 class="box-title">Ingresar Nueva Actividad</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -65,7 +71,7 @@
 
                             <div class="form-group">
                                 <label for="Id">Horario</label>
-                                <select class="form-control" name="idHorario">
+                                <select class="form-control" id="idHorario" name="idHorario">
                                     @if (Model != null)
                                     {
                                         foreach (var c in Model.lHorarios)
@@ -106,11 +112,17 @@
 @section Scripts
 {
     <script>
+
+        
+
+
         $("#idTipo").change(function () {
             //if ($("#listaSist").val() == "Seleccionar") { return false;}
             $("#idProfesor").empty();
             $("#idLocacion").empty();
+            $("#idHorario").empty();
             $.ajax({
+                
                 type: 'POST',
                 url: '@Url.Action("getProfesor")',
                 dataType: 'json',
@@ -121,7 +133,9 @@
                     $.each(puntos, function (i, punto) {
                         $("#idProfesor").append('<option value="' + punto.Value + '">' +
                             punto.Text + '</option>');
+
                     });
+                    
                 },
                 error: function (ex) {
                     alert('Error al cargar los Puntos. ' + ex);
@@ -144,7 +158,31 @@
                     alert('Error al cargar los Puntos. ' + ex);
                 }
             });
+            
+            
 
+
+        });
+        $("#idLocacion").change(function () {
+            $("#idHorario").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("getHorario")',
+                dataType: 'json',
+                data: {
+                    idLocacion: $("#idLocacion").val(),
+                },
+                success: function (puntos) {
+                    $.each(puntos, function (i, punto) {
+                        $("#idHorario").append('<option value="' + punto.Value + '">' +
+                            punto.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Error al cargar los Puntos. ' + ex);
+                }
+
+            })
 
         });
 
