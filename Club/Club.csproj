@@ -123,6 +123,7 @@
     <Compile Include="Controllers\ActividadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HorarioController.cs" />
+    <Compile Include="Controllers\InscripcionController.cs" />
     <Compile Include="Controllers\LocacionController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProfesorController.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="Models\ActividadTipo.cs" />
     <Compile Include="Models\EstadoReserva.cs" />
     <Compile Include="Models\Horario.cs" />
+    <Compile Include="Models\Inscripcion.cs" />
     <Compile Include="Models\Locacion.cs" />
     <Compile Include="Models\MVListaActividadComponentes.cs" />
     <Compile Include="Models\PosibleHours.cs" />
@@ -2195,6 +2197,10 @@
     <Content Include="Views\Actividad\Index.cshtml" />
     <Content Include="Views\Profesor\Index.cshtml" />
     <Content Include="Views\Profesor\Edit.cshtml" />
+    <Content Include="Views\Inscripcion\Index.cshtml" />
+    <Content Include="Views\Inscripcion\Create.cshtml" />
+    <Content Include="Views\Error\YaInscripto.cshtml" />
+    <Content Include="Views\Actividad\SociosInscriptos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

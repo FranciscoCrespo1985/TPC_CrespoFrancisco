@@ -1,0 +1,85 @@
+﻿
+@model List<Club.Models.Inscripcion>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        @Html.ActionLink("Crear", "Create", "Actividad")
+    </li>
+    <li class="breadcrumb-item active">Indice</li>
+</ol>
+<h2>Index</h2>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Bordered Table</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th>Id Actividad:</th>
+                                    <th>Tipo Actividad:</th>
+                                    <th>Numero / Nombre Cancha:</th>
+                                    <th>Profesor</th>
+                                    <th>Horario:</th>
+                                    <th>Dias</th>
+
+                                </tr>
+                                @foreach (var m in Model)
+                                {
+
+                                    <tr>
+
+                                        <td>@m.id</td>
+                                        <td>@m.actividad.locacion.tipo.descripcion</td>
+                                        <td>@m.actividad.locacion.descripcion</td>
+                                        <td>@m.actividad.profesor.nombre</td>
+                                        <td>@m.actividad.horario.horaInicio.Hour:@m.actividad.horario.horaInicio.Minute - @m.actividad.horario.horaFin.Hour:@m.actividad.horario.horaFin.Minute</td>
+
+                                        <td>
+                                            Del @m.actividad.horario.fechaInicioActividad.Date.Day/@m.actividad.horario.fechaInicioActividad.Date.Month/@m.actividad.horario.fechaInicioActividad.Date.Year al @m.actividad.horario.fechaFinActividad.Date.Day/@m.actividad.horario.fechaFinActividad.Date.Month/@m.actividad.horario.fechaFinActividad.Date.Year<br />
+                                            @m.actividad.horario.diasXSemana()
+                                        </td>             
+                                        <td>
+                                            @using (Html.BeginForm("Delete", "Inscripcion", FormMethod.Post))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" value="@m.id" name="i" />
+                                                <input type="hidden" value="@m.actividad.id" name="idActividad" />
+                                                <input class="btn btn-block btn-danger" type="submit" value="Borrar" />
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer clearfix">
+                        <ul class="pagination pagination-sm no-margin pull-right">
+                            <li><a href="#">«</a></li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">»</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+</section>

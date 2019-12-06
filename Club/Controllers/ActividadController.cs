@@ -85,14 +85,39 @@ namespace Club.Controllers
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
+            Session["idActividad" + Session.SessionID] = id;
+            List<Socio> socios = new List<Socio>();
+            Socio aux;
+            AccesoDatos datos = new AccesoDatos();
+            datos.setearQuery("select s.id,s.dni,s.nombre,s.apellido,s.telefono,s.email,ts.id_subscripcion,ts.descripcion from inscripciones as i " +
+                "inner join socios as s on i.id_socio = s.id " +
+                "inner join TiposSubscripcion as ts on s.id_tiposSubscripcion = ts.id_subscripcion " +
+                "where i.id_actividad = @id");
+            datos.agregarParametro("@id",id);
+            
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                datos.ejecutarLector();
+                while (datos.lector.Read()) 
+                {
+                    aux = new Socio();
+                    aux.subscripcionTipo = new SubscripcionTipo();
+                    aux.id = datos.lector.GetInt32(0);
+                    aux.dni = datos.lector.GetString(1);
+                    aux.nombre = datos.lector.GetString(2);
+                    aux.apellido = datos.lector.GetString(3);
+                    aux.telefono = datos.lector.GetString(4);
+                    aux.email = datos.lector.GetString(5);
+                    aux.subscripcionTipo.id = datos.lector.GetInt32(6);
+                    aux.subscripcionTipo.descripcion = datos.lector.GetString(7);
+                    socios.Add(aux);
+                }
+                datos.cerrarConexion();
+                return View("SociosInscriptos",socios);
             }
             catch
             {
+                throw;
                 return View();
             }
         }
@@ -127,6 +152,46 @@ namespace Club.Controllers
                 return View();
             }
         }
+        [HttpPost]
+        public ActionResult QuitarSocioDeActividad(int id, FormCollection collection)  
+        {
+            int idActividad = (int)Session["idActividad" + Session.SessionID];
+            AccesoDatos datos = new AccesoDatos();
+            long idH;
+            int num;
+            datos.setearQuery("select h.cupo,h.cantInscriptos,h.id from horario as h " +
+                "inner join actividad as a on a.id_horario = h.id where a.id = @id_actividad");
+            datos.agregarParametro("@id_actividad", idActividad);
+            datos.ejecutarLector();
+            datos.lector.Read();
+            idH = datos.lector.GetInt64(2);
+            num = datos.lector.GetInt32(1);
+            datos.cerrarConexion();
+            disminuirHorarioInscripcion(idH, num);
+
+            datos = new AccesoDatos();
+            datos.setearQuery("delete from inscripciones  where inscripciones.id_socio = @id and inscripciones.id_actividad=@id_actividad");
+            datos.agregarParametro("@id", Convert.ToInt32(collection["Id"]));
+            datos.agregarParametro("@id_actividad", idActividad);
+            datos.ejecutarAccion();
+            datos.cerrarConexion();
+
+            return RedirectToAction("Create","Actividad");
+
+        }
+        private void disminuirHorarioInscripcion(long idH, int num)
+        {
+            num--;
+            AccesoDatos datos = new AccesoDatos();
+            datos.setearQuery("update horario set cantInscriptos =@num where horario.id = @idH");
+            datos.agregarParametro("@num", num);
+            datos.agregarParametro("@idH", idH);
+            datos.ejecutarAccion();
+            datos.cerrarConexion();
+        }
+
+
+
         public JsonResult getProfesor(string idActividad)
         {
             Listas listar = new Listas();

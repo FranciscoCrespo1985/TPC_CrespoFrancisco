@@ -1,0 +1,75 @@
+﻿@model List<Club.Models.Socio>
+@{
+    ViewBag.Title = "SociosInscriptos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Bordered Table</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th style="width: 10px">#</th>
+
+                                    <th>Nombre:</th>
+                                    <th>Apellido:</th>
+                                    <th>Tipo de Subscripcion:</th>
+                                    <th>DNI:</th>
+                                    <th>Telefono:</th>
+                                    <th>Email:</th>
+                                    <th>Password:</th>
+
+                                </tr>
+                                @foreach (var socio in Model)
+                                {
+
+                                    <tr>
+
+                                        <td>@socio.id</td>
+                                        <td>@socio.nombre</td>
+                                        <td>@socio.apellido</td>
+                                        <td>@socio.subscripcionTipo.descripcion</td>
+                                        <td>@socio.dni</td>
+                                        <td>@socio.telefono</td>
+                                        <td>@socio.email</td>
+                                        <td>@socio.pwd</td>
+
+                                        <td>
+                                            @using (Html.BeginForm("QuitarSocioDeActividad", "Actividad", FormMethod.Post))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                
+                                                <input type="hidden" value="@socio.id" name="Id" />
+                                                <input class="btn btn-block btn-danger" type="submit" value="Sacar" />
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer clearfix">
+                        <ul class="pagination pagination-sm no-margin pull-right">
+                            <li><a href="#">«</a></li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">»</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

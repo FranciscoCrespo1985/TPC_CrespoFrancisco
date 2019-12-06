@@ -1,0 +1,86 @@
+﻿@model List<Club.Models.Actividad>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        @Html.ActionLink("Crear", "Create", "Actividad")
+    </li>
+    <li class="breadcrumb-item active">Indice</li>
+</ol>
+<h2>Index</h2>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Bordered Table</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th>Id Actividad:</th>
+                                    <th>Tipo Actividad:</th>
+                                    <th>Numero / Nombre Cancha:</th>
+                                    <th>Profesor</th>
+                                    <th>Horario:</th>
+                                    <th>Dias</th>
+
+                                </tr>
+                                @foreach (var m in Model)
+                                {
+
+                                    <tr>
+
+                                        <td>@m.id</td>
+                                        <td>@m.locacion.tipo.descripcion</td>
+                                        <td>@m.locacion.descripcion</td>
+                                        <td>@m.profesor.nombre</td>
+                                        <td>@m.horario.horaInicio.Hour:@m.horario.horaInicio.Minute - @m.horario.horaFin.Hour:@m.horario.horaFin.Minute</td>
+
+                                        <td>
+                                            Del @m.horario.fechaInicioActividad.Date.Day/@m.horario.fechaInicioActividad.Date.Month/@m.horario.fechaInicioActividad.Date.Year al @m.horario.fechaFinActividad.Date.Day/@m.horario.fechaFinActividad.Date.Month/@m.horario.fechaFinActividad.Date.Year<br />
+                                            @m.horario.diasXSemana()
+                                        </td>
+
+                                        
+                                        <td>
+                                            @using (Html.BeginForm("Create", "Inscripcion", FormMethod.Post))
+                                            {
+                                                @Html.AntiForgeryToken()
+
+                                                <input type="hidden" value="@m.id" name="Id" />
+                                                <input class="btn btn-block btn-success" type="submit" value="Inscribirse" />
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer clearfix">
+                        <ul class="pagination pagination-sm no-margin pull-right">
+                            <li><a href="#">«</a></li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">»</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+</section>

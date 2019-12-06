@@ -49,7 +49,7 @@ namespace Club.Services
             }
             finally
             {
-                // conexion.Close();
+                //conexion.Close();
             }
         }
 

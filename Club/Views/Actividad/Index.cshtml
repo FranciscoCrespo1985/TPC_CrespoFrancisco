@@ -50,11 +50,11 @@
                                 </td>
 
                                 <td>
-                                    @using (Html.BeginForm("Edit", "Profesor", FormMethod.Post))
+                                    @using (Html.BeginForm("Edit", "Actividad", FormMethod.Post))
                                     {
                                         @Html.AntiForgeryToken()
 
-                                        <input type="hidden" value="@m" name="Id" />
+                                        <input type="hidden" value="@m.id" name="Id" />
                                         <input class="btn btn-block btn-warning" style="color:#ffffff; font-weight:400;" type="submit" value="Editar" />
                                     }
                                 </td>

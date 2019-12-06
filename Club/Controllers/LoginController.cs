@@ -26,8 +26,6 @@ namespace Club.Controllers
             if (s.pwd == Convert.ToString(collection["password"]))
             {
                 Session["idSocio" + Session.SessionID]=s;
-                s = (Socio)Session["idSocio" + Session.SessionID];
-                
                 return Redirect("/UserCalendar");
             }
             return View();
