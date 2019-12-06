@@ -167,10 +167,6 @@ namespace Club.Services
                 aux.pwd = datos.lector.GetString(7);
                 aux.subscripcionTipo.id = datos.lector.GetInt32(8);
                 aux.subscripcionTipo.descripcion = datos.lector.GetString(9);
-
-
-                    
-                
                 datos.cerrarConexion();
 
             }
@@ -184,6 +180,79 @@ namespace Club.Services
 
         }
 
+
+
+        public Socio seleccionarSocio(int id) 
+        {
+            AccesoDatos datos = new AccesoDatos();
+            Socio aux = new Socio();
+            aux.subscripcionTipo = new SubscripcionTipo();
+            try
+            {
+                datos.setearQuery("select * from socios as s " +
+                    "inner join tiposSubscripcion as ts on ts.id_subscripcion = s.id_tiposSubscripcion " +
+                    "where s.id = @id");
+                datos.agregarParametro("@id", id);
+                datos.ejecutarLector();
+                datos.lector.Read();
+                aux.subscripcionTipo = new SubscripcionTipo();
+                aux.id = datos.lector.GetInt32(0);
+                aux.dni = datos.lector.GetString(2);
+                aux.nombre = datos.lector.GetString(3);
+                aux.apellido = datos.lector.GetString(4);
+                aux.telefono = datos.lector.GetString(5);
+                aux.email = datos.lector.GetString(6);
+                aux.pwd = datos.lector.GetString(7);
+                aux.subscripcionTipo.id = datos.lector.GetInt32(8);
+                aux.subscripcionTipo.descripcion = datos.lector.GetString(9);
+                datos.cerrarConexion();
+            }
+            catch (Exception)
+            {
+                datos.cerrarConexion();
+                throw;
+            }
+            return aux;
+        }
+
+        public List<Socio> listaSocio() {
+            AccesoDatos datos = new AccesoDatos();
+            Socio aux;
+            List<Socio> socios = new List<Socio>();
+            try
+            {
+
+                datos.setearQuery("select * from socios as s " +
+                    "inner join tiposSubscripcion as ts on ts.id_subscripcion = s.id_tiposSubscripcion ");
+                datos.ejecutarLector();
+                while (datos.lector.Read())
+                {
+                    aux = new Socio();
+
+                    aux.subscripcionTipo = new SubscripcionTipo();
+                    aux.id = datos.lector.GetInt32(0);
+                    aux.dni = datos.lector.GetString(2);
+                    aux.nombre = datos.lector.GetString(3);
+                    aux.apellido = datos.lector.GetString(4);
+                    aux.telefono = datos.lector.GetString(5);
+                    aux.email = datos.lector.GetString(6);
+                    aux.pwd = datos.lector.GetString(7);
+                    aux.subscripcionTipo.id = datos.lector.GetInt32(8);
+                    aux.subscripcionTipo.descripcion = datos.lector.GetString(9);
+
+
+                    socios.Add(aux);
+                }
+                datos.cerrarConexion();
+
+            }
+            catch (Exception ex)
+            {
+                datos.cerrarConexion();
+                throw;
+            }
+            return socios;
+        }
         public List<SubscripcionTipo> ListaSocioTipo()
         {
             AccesoDatos datos = new AccesoDatos();
@@ -226,7 +295,7 @@ namespace Club.Services
                 datos.setearQuery("select * from profesor as p" +
                               " inner join tiposActividad as tp on p.ID_Actividad_Tipo = tp.id where p.id = "+id.ToString());
                 datos.ejecutarLector();
-                
+                datos.lector.Read();
                     aux = new Profesor();
                     aux.actividad = new ActividadTipo();
                     aux.id = datos.lector.GetInt32(0);

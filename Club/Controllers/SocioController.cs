@@ -96,7 +96,7 @@ namespace Club.Controllers
                 datos.ejecutarAccion();
                 datos.cerrarConexion();
 
-                return RedirectToAction("Index");
+                return Redirect("/login");
             }
             catch
             {
@@ -107,16 +107,42 @@ namespace Club.Controllers
         // GET: Socio/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Listas l = new Listas();
+            return View(l.seleccionarSocio(id));
         }
 
         // POST: Socio/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id,FormCollection collection)
         {
+            AccesoDatos datos = new AccesoDatos();
+            Socio socio = new Socio();
+            socio.subscripcionTipo = new SubscripcionTipo();
+            socio.id = id;
+            socio.nombre = Convert.ToString(collection["nombre"]);
+            socio.apellido = Convert.ToString(collection["apellido"]);
+            socio.pwd = Convert.ToString(collection["pwd"]);
+            socio.dni = Convert.ToString(collection["dni"]);
+            socio.email = Convert.ToString(collection["email"]);
+            socio.telefono = Convert.ToString(collection["telefono"]);
+            socio.subscripcionTipo.id = Convert.ToInt32(collection["idsub"]);
+
+            
             try
             {
-                // TODO: Add update logic here
+                datos.setearQuery("update socios set id_tiposSubscripcion=@id_tiposSubscripcion ,dni=@dni,nombre=@nombre,apellido=@apellido,telefono=@telefono,email=@email,pwd=@pwd where id=@id");
+                datos.agregarParametro("@id_tiposSubscripcion", socio.subscripcionTipo.id);
+                datos.agregarParametro("@dni",socio.dni);
+                datos.agregarParametro("@nombre",socio.nombre);
+                datos.agregarParametro("@apellido", socio.apellido);
+                datos.agregarParametro("@telefono", socio.telefono);
+                datos.agregarParametro("@email", socio.email);
+                datos.agregarParametro("@pwd", socio.pwd);
+                datos.agregarParametro("@id", socio.id);
+
+                datos.ejecutarAccion();
+                datos.cerrarConexion();
+
 
                 return RedirectToAction("Index");
             }
@@ -136,16 +162,26 @@ namespace Club.Controllers
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            try
+            Socio s = (Socio)Session["idSocio" + Session.SessionID];
+            if (s.subscripcionTipo.id == 2) 
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                AccesoDatos datos = new AccesoDatos();
+                try
+                {
+                    datos.setearQuery("delete from socios where id = @id");
+                    datos.agregarParametro("@id", id);
+                    datos.ejecutarAccion();
+                    datos.cerrarConexion();
+                    if(s.id == id) { return Redirect("/login");}
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    datos.cerrarConexion();
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
     }
 }

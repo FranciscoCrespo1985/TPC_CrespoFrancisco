@@ -133,11 +133,13 @@ namespace Club.Controllers
         public ActionResult Delete(int id, FormCollection collection)
         {
             AccesoDatos datos = new AccesoDatos();
+            
             try
             {
                 datos.setearQuery("delete from actividad where id =@id");
                 datos.agregarParametro("@id", id);
                 datos.ejecutarAccion();
+
 
                 // TODO: Add delete logic here
 

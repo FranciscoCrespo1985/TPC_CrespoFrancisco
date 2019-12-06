@@ -1,15 +1,12 @@
-﻿@model List<Club.Models.SubscripcionTipo>
+﻿@model Club.Models.Socio
 @{
-    ViewBag.Title = "Create";
+ 
+    ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
 
-            @Html.ActionLink("Index", "Index", "Socio")
-        </li>
-        <li class="breadcrumb-item active">Create</li>
-    </ol>
+<h2>Edit</h2>
+
 <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -22,7 +19,7 @@
                     <div class="box-body">
                         <!-- form start -->
 
-                        @using (Html.BeginForm("Create", "Socio",
+                        @using (Html.BeginForm("Edit", "Socio",
                             new { ReturnUrl = ViewBag.ReturnUrl },
                             FormMethod.Post, new { @class = "login-form", name = "colletion" }))
                         {
@@ -31,7 +28,7 @@
                             <div class="form-group">
                                 <label for="nombre">NOMBRE</label>
                                 <div class="input-group input-group-sm">
-                                    <input type="text" name="nombre" id="nombre" class="form-control">
+                                    <input type="text" name="nombre" id="nombre" value="@Model.nombre" class="form-control">
                                     <br />
                                 </div>
                             </div>
@@ -39,7 +36,7 @@
                             <div class="form-group">
                                 <label for="nombre">Apellido</label>
                                 <div class="input-group input-group-sm">
-                                    <input type="text" name="Apellido" id="Apellido" class="form-control">
+                                    <input type="text" name="Apellido" id="Apellido" value="@Model.apellido" class="form-control">
                                     <br />
                                 </div>
                             </div>
@@ -47,7 +44,7 @@
                             <div class="form-group">
                                 <label for="dni">DNI</label>
                                 <div class="input-group input-group-sm">
-                                    <input type="text" name="dni" id="dni" class="form-control">
+                                    <input type="text" name="dni" id="dni" value="@Model.dni"class="form-control">
                                     <br />
                                 </div>
                             </div>
@@ -56,7 +53,7 @@
                                 <label for="telefono">TELEFONO</label>
                                 <div class="input-group input-group-sm">
 
-                                    <input type="text" name="telefono" id="telefono" class="form-control">
+                                    <input type="text" name="telefono" id="telefono" value="@Model.telefono" class="form-control">
                                     <br />
                                 </div>
                             </div>
@@ -66,7 +63,7 @@
                             <div class="form-group">
                                 <label for="email">EMAIL</label>
                                 <div class="input-group input-group-sm">
-                                    <input type="text" name="email" id="email" class="form-control">
+                                    <input type="text" name="email" id="email" value="@Model.email" class="form-control">
                                     <br />
                                 </div>
                             </div>
@@ -74,22 +71,25 @@
                             <div class="form-group">
                                 <label for="pwd">PASSWORD</label>
                                 <div class="input-group input-group-sm">
-                                    <input type="password" name="pwd" id="pwd" class="form-control">
+                                    <input type="password" name="pwd" id="pwd" value="@Model.pwd"class="form-control">
                                     <br />
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="Id">TIPO DE Socio</label>
-                                <select class="form-control" name="Id">
-                                    @foreach (var c in Model)
-                                    {
-                                        <option value="@c.id">@c.descripcion</option>
-                                    }
-                                </select>
+                                <label for="tipo">TIPO DE Socio</label>
+                                
+                                <div class="input-group input-group-sm">
+                                    <input type="text" name="tipo" id="tipo" value="@Model.subscripcionTipo.descripcion" class="form-control">
+                                    <br />
+                                </div>
+                                    
+                               
                             </div>
 
                             <div class="box-footer">
+                                <input type="hidden" value="@Model.id" name="Id" />
+                                <input type="hidden" value="@Model.subscripcionTipo.id" name="idsub" />
                                 <input class="btn btn-primary" type="submit" value="Ingresar" />
                             </div>
 
@@ -104,4 +104,3 @@
         </div>
     </div>
 </section>
-

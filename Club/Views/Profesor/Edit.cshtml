@@ -1,8 +1,90 @@
-﻿
+﻿@model Club.Models.Profesor
 @{
+
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Edit</h2>
 
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Nuevo Socio</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <!-- form start -->
+
+                        @using (Html.BeginForm("Edit", "Profesor",
+                            new { ReturnUrl = ViewBag.ReturnUrl },
+                            FormMethod.Post, new { @class = "login-form", name = "colletion" }))
+                        {
+
+
+                            <div class="form-group">
+                                <label for="nombre">NOMBRE</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" name="nombre" id="nombre" value="@Model.nombre" class="form-control">
+                                    <br />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="dani">Dni</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" name="dni" id="dni" value="@Model.dni" class="form-control">
+                                    <br />
+                                </div>
+                            </div>
+
+                            
+
+                            <div class="form-group">
+                                <label for="telefono">TELEFONO</label>
+                                <div class="input-group input-group-sm">
+
+                                    <input type="text" name="telefono" id="telefono" value="@Model.telefono" class="form-control">
+                                    <br />
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <label for="email">EMAIL</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" name="email" id="email" value="@Model.email" class="form-control">
+                                    <br />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tipo">Actividad Tipo</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" name="tipo" id="tipo" value="@Model.actividad.id" class="form-control">
+                                    <br />
+                                </div>
+                            </div>
+
+
+                            <div class="box-footer">
+                                <input type="hidden" value="@Model.id" name="Id" />
+                                <input type="hidden" value="@Model.actividad.id" name="idact" />
+                                <input class="btn btn-primary" type="submit" value="Ingresar" />
+                            </div>
+
+
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- /.box-body -->
+
+        </div>
+    </div>
+</section>

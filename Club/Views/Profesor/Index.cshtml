@@ -1,5 +1,6 @@
 ﻿@model List<Club.Models.Profesor>
 @{
+
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -48,11 +49,11 @@
                                 <td>@m.email</td>
                                 <td>@m.actividad.descripcion</td>
                                 <td>
-                                    @using (Html.BeginForm("Edit", "Profesor", FormMethod.Post))
+                                    @using (Html.BeginForm("Edit", "Profesor", FormMethod.Get))
                                     {
                                         @Html.AntiForgeryToken()
 
-                                        <input type="hidden" value="@m" name="Id" />
+                                        <input type="hidden" value="@m.id" name="Id" />
                                         <input class="btn btn-block btn-warning" style="color:#ffffff; font-weight:400;" type="submit" value="Editar" />
                                     }
                                 </td>

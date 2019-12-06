@@ -3,7 +3,13 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
 
+            @Html.ActionLink("Crear", "Create", "Socio")
+        </li>
+        <li class="breadcrumb-item active">Indice</li>
+    </ol>
 <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -41,12 +47,20 @@
                                 <td>@socio.telefono</td>
                                 <td>@socio.email</td>
                                 <td>@socio.pwd</td>
+                                <td>
+                                    @using (Html.BeginForm("Edit", "Socio", FormMethod.Get))
+                                    {
+                                        @Html.AntiForgeryToken()
 
+                                        <input type="hidden" value="@socio.id" name="Id" />
+                                        <input class="btn btn-block btn-danger" type="submit" value="Edit" />
+                                    }
+                                </td>
                                 <td>
                                     @using (Html.BeginForm("Delete", "Socio", FormMethod.Post))
                                     {
                                         @Html.AntiForgeryToken()
-                                        
+
                                         <input type="hidden" value="@socio.id" name="Id" />
                                         <input class="btn btn-block btn-danger" type="submit" value="Borrar" />
                                     }

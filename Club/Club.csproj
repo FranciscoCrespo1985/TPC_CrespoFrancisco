@@ -2201,6 +2201,7 @@
     <Content Include="Views\Inscripcion\Create.cshtml" />
     <Content Include="Views\Error\YaInscripto.cshtml" />
     <Content Include="Views\Actividad\SociosInscriptos.cshtml" />
+    <Content Include="Views\Socio\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

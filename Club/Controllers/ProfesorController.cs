@@ -66,24 +66,49 @@ namespace Club.Controllers
         }
 
         // GET: Profesor/Edit/5
-        public ActionResult Edit(Profesor p)
+        public ActionResult Edit(int id)
         {
-
-            return View();
+            Listas l = new Listas();
+            return View(l.seleccionarProfesor(id));
         }
 
         // POST: Profesor/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
+            AccesoDatos datos = new AccesoDatos();
+
+            Profesor p = new Profesor();
+            p.actividad = new ActividadTipo();
+            p.nombre = Convert.ToString(collection["nombre"]);
+            p.dni = Convert.ToString(collection["dni"]);
+            p.telefono = Convert.ToString(collection["telefono"]);
+            p.email = Convert.ToString(collection["email"]);
+            p.id = Convert.ToInt32(collection["Id"]);
+            p.actividad.id = Convert.ToInt32(collection["idact"]);
+
+
+
+
             try
             {
-                // TODO: Add update logic here
+                datos.setearQuery("update profesores set nombre=@nombre,dni=@dni,telefono=@telefono,email=@email where id=@id");
+                datos.agregarParametro("@nombre", p.nombre);
+                datos.agregarParametro("@dni", p.dni);
+                datos.agregarParametro("@telefono", p.telefono);
+                datos.agregarParametro("@email", p.email);
+                datos.agregarParametro("@ID_Actividad_Tipo",p.actividad.id);
+                datos.agregarParametro("@id", p.id);               
+     
+                datos.ejecutarAccion();
+                datos.cerrarConexion();
+
 
                 return RedirectToAction("Index");
             }
             catch
             {
+                throw;
                 return View();
             }
         }
